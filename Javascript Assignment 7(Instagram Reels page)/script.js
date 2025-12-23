@@ -133,10 +133,11 @@ const reelsData = [
 
 let allReels = document.querySelector(".all-reels");
 
-let data = "";
+function addData() {
+  let data = "";
 
-reelsData.forEach((dets) => {
-  data = data += ` <div class="reels">
+  reelsData.forEach((dets, idx) => {
+    data = data += ` <div class="reels">
             <video loop playsinline preload="none" src=${dets.video}></video>
 
             <!-- its a bottom section for profile description and follow/unfollow -->
@@ -145,7 +146,9 @@ reelsData.forEach((dets) => {
               <div class="topBottom">
                 <img src=${dets.profileImg} alt="" />
                 <h2>${dets.creator}</h2>
-                <button>${dets.followed ? "Unfollow" : "Follow"}</button>
+                <button id=${idx} class="follow">${
+      dets.followed ? "Unfollow" : "Follow"
+    }</button>
               </div>
               <p class="desc">${dets.desc}</p>
             </div>
@@ -158,7 +161,7 @@ reelsData.forEach((dets) => {
                     : '<i class="ri-heart-line"></i>'
                 }
                 </h2>
-                <h6>${dets.likesCount}</h6>
+                <h6 id=${idx}>${dets.likesCount}</h6>
               </div>
               <div class="comment-icon">
                 <h2><i class="ri-chat-3-line"></i></h2>
@@ -173,25 +176,44 @@ reelsData.forEach((dets) => {
               </div>
             </div>
           </div>`;
+  });
+  allReels.innerHTML = data;
+}
+addData();
+
+allReels.addEventListener("click", function (dets) {
+  if (!reelsData[dets.target.id].liked) {
+    reelsData[dets.target.id].likesCount++;
+    reelsData[dets.target.id].liked = true;
+    addData();
+  } else {
+    reelsData[dets.target.id].likesCount--;
+    reelsData[dets.target.id].liked = false;
+    addData();
+  }
 });
-allReels.innerHTML = data;
 
-// i use here chatGPT for loading of videos when it appears on screeen..
-let videos = document.querySelectorAll(".reels video");
+function handleVideoPlay() {
+  let videos = document.querySelectorAll("video");
 
-let observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.play();
-      } else {
-        entry.target.pause();
-        entry.target.currentTime = 0;
-      }
-    });
-  },
-  { threshold: 0.6 }
-);
+  let observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        let video = entry.target;
 
-// Observe all videos
-videos.forEach((video) => observer.observe(video));
+        if (entry.isIntersecting) {
+          video.play();
+        } else {
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+    },
+    { threshold: 0.6 }
+  );
+
+  videos.forEach((video) => observer.observe(video));
+}
+
+addData();
+handleVideoPlay();

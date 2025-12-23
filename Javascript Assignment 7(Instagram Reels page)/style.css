@@ -44,6 +44,7 @@ main {
   overflow: hidden;
   scroll-snap-align: start;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }

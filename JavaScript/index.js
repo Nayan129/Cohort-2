@@ -436,7 +436,7 @@
 //   console.log('hello javascript')
 // })
 
-// Q8 🌀 Execution & Scope
+// Q8  Execution & Scope
 //  What will be the output?
 // let a = 10;
 // function test() {
@@ -479,7 +479,273 @@
 //   console.log(count);
 // }
 
-// countA("banana"); 
+// countA("banana");
 
+// ........................................................
+// ................ OPPS Concepts ......................
+// Q1 Create a user object that stores name and email and has a login method which prints “User logged in”.
 
+// const user = {
+//   name: "nayan",
+//   email: "nayanbhusari02@gmail.com",
+//   login: function () {
+//     console.log("user logged in");
+//   },
+// };
+// user.login();
+
+// Q2 Imagine you now have 5 users.
+// First, think how you would manage them without using a class.
+// Then convert the same logic using a class and observe how the code becomes cleaner. Write code for both approaches.
+
+// let user1 = {
+//   name: "Akarsh",
+// };
+// let user2 = {
+//   name: "Akarsh",
+// };
+// let user3 = {
+//   name: "Akarsh",
+// };
+// let user4 = {
+//   name: "Akarsh",
+// };
+// let user5 = {
+//   name: "Arsh",
+// };
+// console.log(user1);
+// console.log(user2);
+// console.log(user3);
+// console.log(user4);
+// console.log(user5);
+
+// class User {
+//   constructor(name, email, age) {
+//     (this.name = name), (this.email = email), (this.age = age);
+//   }
+// }
+// let u1 = new User("nayan", "nayanbhusari02@gmail.com", 21);
+// let u2 = new User("nayan", "b@b.bcom", 20);
+// let u3 = new User("nayan", "c@c.ccom", 19);
+// let u4 = new User("nayan", "d@c.dcom", 22);
+// let u5 = new User("nayan", "e@c.ecom", 23);
+
+// Q3 Create a product object that stores name and price and has a method which returns the final price after discount.
+// class Product {
+//   constructor(name, price) {
+//     this.name = name;
+//     this.price = price;
+//     this.finalPrice = function (discount) {
+//       return this.price - discount;
+//     };
+//   }
+// }
+// let p1 = new Product("pepsi", 20);
+// console.log(p1.finalPrice(5));
+
+// Q4 Create a Car class with the following:
+// brand
+// speed
+// a drive method that prints the car brand and speed
+
+// Q5 Create two different car objects from the same class and verify that their data is different.
+// class Car {
+//   constructor(brand, speed) {
+//     this.brand = brand;
+//     this.speed = speed;
+//   }
+//   drive() {
+//     console.log(`${this.brand} - ${this.speed}`);
+//   }
+// }
+// let car1 = new Car("BMW", 210);
+// let car2 = new Car("Audi", 240);
+// car1.drive();
+// car2.drive();
+
+// Q6 Create a Student class whose constructor accepts name and roll number.
+// Add a method introduce that prints both values.
+
+// class Student {
+//   constructor(name, rollNo) {
+//     this.name = name;
+//     this.rollNo = rollNo;
+//   }
+//   introduce() {
+//     console.log(this.name + " - " + this.rollNo);
+//   }
+// }
+// let std1 = new Student("Harshit", 201);
+// std1.introduce();
+
+// Q7
+// let Obj = {
+//   normal: function () {
+//     console.log(this);
+//   },
+//   arrow: () => {
+//     console.log(this);
+//   },
+// };
+// Obj.normal();
+// Obj.arrow();
+
+// 10.	Create a User constructor function (do not use class syntax).
+// function User() {
+//   (this.name = "nayan"), (this.age = 21);
+// }
+// let user1 = new User();
+// console.log(user1);
+
+// Q11.	Add a login method in two ways:
+// First, inside the constructor
+// Then, move the method to the prototype
+
+// class Student {
+//   constructor() {
+//     this.name = "Nayan";
+//     this.age = 21;
+//     this.login = function () {
+//       console.log("login inside");
+//     };
+//   }
+//   // login() {
+//   //   console.log("login outside");
+//   // }
+// }
+// let s1 = new Student();
+
+// Q12 Create two User objects and compare their login methods using equality. Explain why the result is true or false.
+
+// class User {
+//   constructor(name) {
+//     this.name = name;
+//     this.login = function () {
+//       console.log("User logged in");
+//     };
+//   }
+// }
+
+// let U1 = new User("A");
+// let U2 = new User("B");
+
+// console.log(U1.login === U2.login);
+
+// 13.	Create a function that prints this.name.
+// function user() {
+//   console.log(this.name);
+// }
+// user();
+// Output will be "" blank string..
+
+// 	14.	Create an object that contains a name property.
+// function user(a, b, c) {
+//   console.log(this.name, a, b, c);
+// }
+// let obj = {
+//   name: "nayan",
+// };
+
+// user.apply(obj, [1, 2, 3]); //output "nayan,1,2,3"
+// user.call(obj);  //output "nayan"
+// let b1 = user.bind(obj, 1, 2, 3);
+// b1();
+
+// ........................................................
+// callack and callack Hell
+// function abcd(fn) {
+//   fn(function (fn2) {
+//     fn2(function (fn4) {
+//       fn4(function (fn6) {
+//         fn6();
+//       });
+//     });
+//   });
+// }
+// abcd(function (fn1) {
+//   fn1(function (fn3) {
+//     fn3(function (fn5) {
+//       fn5(function(){
+//         console.log("callback at fn5 and exept at fn6")
+//       });
+//     });
+//   });
+// });
+
+// .......................................................
+// .................. Exercise 1 ........................
+// Q1
+// function afterDelay(time, cb) {
+//   setTimeout(() => {
+//     cb();
+//   }, time);
+// }
+// afterDelay(3000, function () {
+//   console.log("callback Excecuted");
+// });
+
+// Q2
+// function getUser(username, cb) {
+//   setTimeout(() => {
+//     cb({ id: 1, username: username });
+//   }, 1000);
+// }
+// function getUserPosts(uniqueNum, cb) {
+//   setTimeout(() => {
+//     cb(["img1", "img2"]);
+//   }, 2000);
+// }
+// getUser("Nayan", function (data) {
+//   getUserPosts(data.id, function (allposts) {
+//     console.log(allposts);
+//   });
+// });
+
+// .............. ChatGPT Questions .......................
+
+// function login(email, password, cb) {
+//   setTimeout(() => {
+//     cb({ id: 1, email, password });
+//   }, 2000);
+// }
+
+// function getProfile(userId, cb) {
+//   setTimeout(() => {
+//     cb({ id: userId, name: "Nayan", age: 21 });
+//   }, 2000);
+// }
+
+// function getFriends(userId, cb) {
+//   setTimeout(() => {
+//     cb(["Aryan", "Naman", "ritanshi"]);
+//   }, 2000);
+// }
+
+// login("nayan@test.com", "1234", function (user) {
+//   getProfile(user.id, function (profile) {
+//     getFriends(profile.id, function (friends) {
+//       console.log("Your Friends:", friends);
+//     });
+//   });
+// });
+
+// ............ weather api calling ................
+
+// async function weatherData(city) {
+//   try {
+//     let apiKey = "741db4dab27fe51c6534364e6f171b8a";
+//     let rawData =
+//       await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric
+// `);
+
+//     if (!rawData.ok) {
+//       throw new Error("city is invalid try another city..");
+//     }
+//     let realData = await rawData.json();
+//     console.log(`${realData.main.temp}°C`);
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// }
+// weatherData("nagpur");
 
