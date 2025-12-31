@@ -1,9 +1,11 @@
 import { useState } from "react";
 
 const App = () => {
-  localStorage.getItem("todos");
   const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState([]);
+
+  const localData = JSON.parse(localStorage.getItem("todos")) || [];
+
+  const [todos, setTodos] = useState(localData);
 
   function changeInput(e) {
     setTodo(e.target.value);
@@ -13,15 +15,17 @@ const App = () => {
     if (todo.trim() === "") {
       return alert("Add todo first");
     }
-    setTodos([...todos, todo]);
+    const newTodos = [...todos, todo];
+    setTodos(newTodos);
     setTodo("");
-    localStorage.setItem("todos", todos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
   }
 
   function deleteTodo(idx) {
     const copyTodos = [...todos];
     copyTodos.splice(idx, 1);
     setTodos(copyTodos);
+    localStorage.setItem("todos", JSON.stringify(copyTodos));
   }
 
   return (
