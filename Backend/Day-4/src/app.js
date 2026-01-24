@@ -10,6 +10,10 @@ app.use(express.json());
 // we store our notes inside this notes array
 const notes = [];
 
+app.get("/", (req, res) => {
+  res.send("Server is running ✅");
+});
+
 /* POST method */
 app.post("/notes", (req, res) => {
   notes.push(req.body);
