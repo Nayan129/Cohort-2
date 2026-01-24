@@ -5,7 +5,7 @@ const rectBtn = document.querySelector(".rightNav .rectBtn");
 const textBtn = document.querySelector(".rightNav .textBtn");
 const saveBtn = document.querySelector(".rightNav .saveBtn");
 const clearBtn = document.querySelector(".rightNav .clearBtn");
-
+const canvasText = document.querySelector(".canvasText");
 const section = document.querySelector("section");
 // left panel
 const leftPanel = document.querySelector(".left-section");
@@ -22,6 +22,10 @@ let elements = []; // all rectangle data store in it
 
 canvas.style.position = "relative";
 
+let selectedId = null;
+
+canvas.style.overflow = "hidden";
+
 // ............. onClick property on rectangle ...........
 rectBtn.addEventListener("click", () => {
   const width = 160;
@@ -31,8 +35,13 @@ rectBtn.addEventListener("click", () => {
   const canvasWidth = canvasRect.width;
   const canvasHeight = canvasRect.height;
 
-  const x = canvasWidth / 2 - width / 2;
-  const y = canvasHeight / 2 - height / 2;
+  const padding = 80;
+
+  const maxX = canvasWidth - width - padding;
+  const maxY = canvasHeight - height - padding;
+
+  const x = Math.floor(Math.random() * Math.max(maxX)) + padding;
+  const y = Math.floor(Math.random() * Math.max(maxY)) + padding;
 
   let rectDisplay = {
     id: "r" + (elements.length + 1),
@@ -41,10 +50,9 @@ rectBtn.addEventListener("click", () => {
     height: height,
     x: x,
     y: y,
-    fill: "#3b82f6",
+    fill: "#531d06",
   };
   elements.push(rectDisplay);
-  console.log(rectDisplay);
 
   // now we create a div jo canvas me rectangle size me show hoga
   const div = document.createElement("div");
@@ -63,18 +71,39 @@ rectBtn.addEventListener("click", () => {
   // canvas me ye div with all its data append ho jayega
   canvas.appendChild(div);
 
-  const canvasText = document.querySelector(".canvasText");
   canvasText.innerHTML = "";
 
   div.dataset.id = rectDisplay.id;
   console.log(div.dataset.id);
 
-  div.addEventListener("mousedown", (e) => {
+  div.addEventListener("click", (e) => {
     e.stopPropagation();
+    selectedId = rectDisplay.id;
+
+    // remove border from all
+    document.querySelectorAll(".rectangle").forEach((r) => {
+      r.style.border = "none";
+    });
+
     div.style.border = "3px dashed yellow";
+
+    console.log("selected rect", selectedId);
   });
 });
 
+canvas.addEventListener("click", () => {
+  selectedId = null;
+
+  document.querySelectorAll(".rectangle").forEach((r) => {
+    r.style.border = "none";
+  });
+
+  console.log("Unselected");
+});
+
 clearBtn.addEventListener("click", () => {
+  canvas.innerHTML = "";
+  elements = [];
+  selectedId = null;
   canvasText.innerHTML = "Click + Rectangle / + Text to add elements";
 });
