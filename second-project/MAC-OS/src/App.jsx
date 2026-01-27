@@ -5,6 +5,7 @@ import Github from "./Components/windows/Github";
 import MacWindow from "./Components/windows/MacWindow";
 import Note from "./Components/windows/Note";
 import Resume from "./Components/windows/Resume";
+import Spotify from "./Components/windows/Spotify";
 const App = () => {
   return (
     <main>
@@ -13,6 +14,7 @@ const App = () => {
       <Github />
       <Note />
       <Resume />
+      <Spotify />
     </main>
   );
 };
