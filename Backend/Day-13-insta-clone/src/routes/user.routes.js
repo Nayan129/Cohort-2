@@ -44,7 +44,65 @@ authRouter.post("/register", async (req, res) => {
     { expiresIn: "1d" },
   );
 
+  // now we store that cookie in res.cookie
+  res.cookie("token", token);
+
+  // now we send respnose as "201" user created successfully
+  res.status(201).json({
+    message: "user created successfully",
+    user: {
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+      profileImage: user.profileImage,
+    },
+  });
+});
+
+// here is user login api.route
+authRouter.post("/login", async (req, res) => {
+  const { username, email, password } = req.body;
+
+  const user = await userModel.findOne({
+    $or: [{ username: username }, { email: email }],
+  });
+
+  if (!user) {
+    return res.status(404).json({
+      message: "user not found",
+    });
+  }
+
+  const hash = crypto.createHash("sha256").update(password).digest("hex");
+
+  const isPasswordValid = hash == user.password;
+  if (!isPasswordValid) {
+    return res.status(401).json({
+      message: "invalid password",
+    });
+  }
+
+  const token = jwt.sign(
+    {
+      id: user._id,
+    },
+    process.env.JWT_SECRET,
+  );
+
+  res.cookie("token", token);
+
+  res.status(200).json({
+    message: "user loggedIn successfully",
+    user: {
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+      profileImage: user.profileImage,
+    },
+  });
+
   
 });
+
 
 module.exports = authRouter;
