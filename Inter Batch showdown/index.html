@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="input.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Figma-style tool</title>
+  </head>
+  <body>
+    <main class="bg-green-500 h-screen w-full text-white">
+      <!-- this is top nav section of tool -->
+      <nav class="bg-[#0A152A] flex justify-between p-4 h-[10%] items-center">
+        <div class="title text-xl font-bold">FIGMA STYLE TOOL</div>
+        <div class="rightNav flex gap-4 mr-2">
+          <button
+            class="rectBtn border-2 py-1.5 px-4 rounded-xl font-medium cursor-pointer active:scale-95 backdrop-blur-lg bg-black/30 border-white/10"
+          >
+            + Rectangle
+          </button>
+          <button
+            class="textBtn border-2 py-1.5 px-4 rounded-xl font-medium cursor-pointer active:scale-95 backdrop-blur-lg bg-black/30 border-white/10"
+          >
+            + Text
+          </button>
+          <button
+            class="saveBtn border-2 py-1.5 px-4 rounded-xl font-medium cursor-pointer active:scale-95 backdrop-blur-lg bg-black/30 border-white/10"
+          >
+            Save
+          </button>
+          <button
+            class="clearBtn border-2 py-1.5 px-4 rounded-xl font-medium cursor-pointer active:scale-95 bg-red-800"
+          >
+            Clear
+          </button>
+        </div>
+      </nav>
+      <hr />
+      <!-- this is where all 3 panels are display i.e. left for move top bottom  center is for display rectangle and text and right side pannel for changing height,width,color and all stuffs-->
+      <section
+        class="grid grid-cols-[clamp(90px,18vw,220px)_minmax(0,1fr)_clamp(90px,18vw,220px)] bg-[#0A152A] pt-3 h-[90%]"
+      >
+        <div class="left-section bg-[#0A152A] border font-semibold pt-6">
+          <h1 class="px-2">Layers</h1>
+          <div class="left-btns mt-2 flex gap-3 px-2 flex-wrap">
+            <button
+              class="moveUp border px-[0.2rem] py-[0.5rem] md:p-2 rounded-xl cursor-pointer active:scale-95 bg-emerald-600"
+            >
+              Move Up
+            </button>
+            <button
+              class="moveDown border px-[0.2rem] py-[0.5rem] md:p-2 rounded-xl cursor-pointer active:scale-95 bg-emerald-600"
+            >
+              Move Down
+            </button>
+          </div>
+        </div>
+
+        <div class="center-section bg-[#0F172A] border p-5 min-w-0">
+          <div
+            class="center border border-dashed rounded bg-[#0F172A] h-full px-1"
+          >
+            <p class="canvasText">Click + Rectangle / + Text to add elements</p>
+          </div>
+        </div>
+
+        <div class="right-section bg-[#0A152A] border font-semibold pt-6">
+          <h1 class="px-2">Properties</h1>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

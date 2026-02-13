@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "helvetica";
+  color: rgb(0, 0, 0);
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+main {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  grid-template-rows: 90px 1fr 1fr;
+  grid-template-areas:
+    "header header"
+    "aside center-section"
+    "bottom-section bottom-section";
+  overflow: auto;
+}
+main::-webkit-scrollbar{
+  display: none;
+}
+header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 80px;
+}
+header .nav-left {
+  font-size: 25px;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+}
+header .nav-center > a {
+  text-decoration: none;
+  color: rgb(102, 103, 103);
+  font-weight: 600;
+}
+header .nav-center i {
+  color: rgb(102, 103, 103);
+  font-weight: 600;
+}
+header .nav-center {
+  display: flex;
+  gap: 40px;
+  padding-left: 100px;
+}
+header .nav-right {
+  display: flex;
+  gap: 15px;
+}
+header .nav-right button {
+  padding: 15px 29px;
+  border: none;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid blue;
+  background: transparent;
+  color: blue;
+  cursor: pointer;
+}
+header .nav-right button:hover{
+  color: black;
+  background: white;
+}
+.nav-right .btn1 {
+  background: blue;
+  color: white;
+}
+
+aside {
+  grid-area: aside;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  /* background-color:sandybrown; */
+  padding: 60px 50px;
+}
+aside h1{
+  font-size: 55px;
+  font-weight: 500;
+  text-wrap: nowrap;
+  color: rgb(0, 0, 0);
+}
+
+center-section {
+  grid-area: center-section;
+  /* background-color: rgb(136, 211, 211); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 65px 0px;
+}
+center-section p{
+  padding: 15px 0px;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgb(94, 93, 93);
+}
+center-section .center-btn{ 
+  margin: 18px 0px;
+}
+.center-btn button{
+  padding: 18px 29px;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  border: 1.5px solid blue;
+  background: transparent;
+  color: blue;
+  cursor: pointer;
+}
+.center-btn .btn2{
+    background: blue;
+  color: white;
+}
+.center-btn i{
+    background: blue;
+  color: white;
+}
+.center-btn .btn3{
+    background: transparent;
+  color: blue;
+}
+bottom-section {
+  grid-area: bottom-section;
+}
+bottom-section img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  padding: 0px 70px;
+}

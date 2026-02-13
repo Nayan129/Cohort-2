@@ -1,0 +1,82 @@
+@font-face {
+  font-family: apple;
+  src: url(./sf-pro-text_semibold.woff2);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: "apple"; */
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+#main {
+  height: 100%;
+  width: 100%;
+  /* background-color: #000; */
+}
+#nav {
+  height: 60px;
+  width: 100%;
+  background-color: rgb(35, 35, 35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+#nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 100;
+  font-size: 15px;
+}
+.display {
+  height: 89%;
+  width: 100%;
+  background-color: #000000;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  background-image: url(./hero_iphone_17_pro__bknyzxfk2agi_medium_2x.jpg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  font-family: apple;
+  font-weight: 900;
+}
+.display h1 {
+  font-size: 55px;
+}
+.display h3 {
+  padding-top: px;
+  font-size: 30px;
+  font-weight: 100;
+}
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 13px;
+}
+button{
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 50px;
+  border: none;
+  color: black;
+  font-weight: 300;
+}
+.btn1{
+  background-color: rgb(4, 4, 219);
+  color: white;
+  
+}
+button:hover{
+    background-color:rgb(4, 4, 219);
+    color: white;
+    transition: 0.3s ease-in;
+}

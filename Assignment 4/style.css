@@ -1,0 +1,77 @@
+@font-face {
+  font-family: f1;
+  src: url(./RUSTY\ ATTACK\ DEMO\ Regular.otf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: f1;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+#main {
+  height: 100%;
+  width: 100%;
+  /* background-color: rgb(61, 61, 59); */
+  padding: 15px 150px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  overflow: hidden;
+  background-image: url(./photo-1525230071276-4a87f42f469e.avif);
+}
+.card {
+  height: 270px;
+  width: 220px;
+  background-color: #e2c6c6;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 5px 5px 10px rgb(58, 55, 55);
+  background: transparent;
+}
+.card:hover {
+  background-color: #f7dada;
+  box-shadow: 5px 5px 15px rgb(165, 119, 119);
+  transform: translateY(-5px);
+  transition: 0.3s ease-in-out;
+}
+.card img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  border-radius: 50px;
+  object-position: top;
+  border: 3px solid white;
+}
+.card h2 {
+  font-size: 16px;
+  font-weight: 800;
+}
+.card p {
+  text-align: center;
+  opacity: 70%;
+  font-size: 14px;
+  font-weight: 200;
+}
+.card button {
+  padding: 10px 25px;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 50px;
+  background-color: aqua;
+  color: rgb(1, 1, 1);
+  border: 2px solid white;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #000;
+  color: white;
+}

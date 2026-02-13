@@ -1,0 +1,85 @@
+*{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Gilroy';
+}
+html,body{
+   height: 100%;
+   width:100%;
+}
+/* normal background color */
+#box{
+  height: 200px;
+  width: 200px;
+  background-color:lightseagreen ;
+}
+/* linear gradient , radial gradient , conical gradient */
+.box{
+  height: 200px;
+  width: 200px;
+  /* background: linear-gradient(to right, red, yellow); */
+    /* background: radial-gradient(circle, blue, white); */
+      background: conic-gradient(red, yellow, green, blue, red);
+}
+
+
+
+/* ............................................................ */
+/* #parent{
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background-color: lightgreen;
+}
+.child{
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  background-color: coral;
+  padding: 20px;
+} */
+
+/* ............................................................ */
+/* #container{
+  display: flex;
+  background: lightgray;
+}
+.items{
+  background: rgb(21, 167, 216);
+  padding: 20px;
+  margin: 5px;
+} */
+/* 
+button{
+  background-color: royalblue;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition:all 0.8s ease ;
+  
+}
+button:hover{
+  background-color: navy;
+  transform: scale(1.1);
+} */
+
+/* .container{
+  display: grid;
+  gap: 10px;
+  grid-template-columns: (3 , 1fr);
+} */
+
+/* div{
+  background: linear-gradient(to right, red, blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} */
+
+/* h1{
+  background: linear-gradient(90deg, red, blue);
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 1px black;
+  -webkit-text-fill-color: transparent;
+} */

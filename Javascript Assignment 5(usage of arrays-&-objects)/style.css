@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+main {
+  height: 100%;
+  width: 100%;
+  background: rgb(59, 59, 62);
+}
+.card-container{
+  height: 100%;
+  width: 100%;
+  background: rgb(31, 20, 42);
+  padding:2rem 6rem;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap:wrap;
+  gap: 2rem;
+  overflow-block:scroll;
+}
+.card {
+  border-radius: 1rem;
+  width: 20rem;
+  border: 2px solid white;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(
+    to bottom,
+    rgb(36, 28, 28),
+    rgb(13, 12, 12),
+    rgb(227, 227, 227)
+  );
+  box-shadow: 0 0 10px white;
+  cursor: pointer;
+}
+
+img {
+  border: 2px solid white;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 2rem;
+}
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+h4 {
+  font-size: 1.2rem;
+  color: rgb(255, 172, 5);
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgb(12, 6, 12);
+  letter-spacing: 0.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+button{
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgb(224, 224, 224);
+  cursor: pointer;
+  background: rgb(31, 86, 203);
+  color: white;
+  font-weight: 600;
+}
+button:hover{
+  background: white;
+  color: black;
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+}
+button:active{
+  scale: 0.85;
+    background: rgb(31, 86, 203);
+}

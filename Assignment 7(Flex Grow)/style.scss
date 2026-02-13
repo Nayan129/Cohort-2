@@ -1,0 +1,52 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html,body{
+  height: 100%;
+  width: 100%;
+}
+main{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  
+}
+section{
+  height: 100%;
+  flex-grow: 1;
+  cursor: pointer;
+  transition: all 0.8s ease-in-out;
+}
+section:hover{
+  flex-grow: 2.4;
+  transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+section:nth-child(1){
+  background-image: url(./baki.jpg);
+  background-size: cover;
+  background-position: center;
+
+}
+section:nth-child(2){
+    background-image: url(./gora.jpg);
+  background-size: cover;
+  background-position: center;
+}
+section:nth-child(3){
+    background-image: url(./gojo.jpg);
+  background-size: cover;
+  background-position: center;
+}
+section:nth-child(4){
+    background-image: url(./demonSlayer.jpg);
+  background-size: cover;
+  background-position: center;
+}
+section:nth-child(5){
+    background-image: url(./itachi.jpg);
+  background-size: cover;
+  background-position: center;
+}

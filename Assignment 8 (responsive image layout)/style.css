@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gilroy";
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-image: url(https://i.pinimg.com/736x/b4/87/25/b487250656bbbaabc883fbb57244ca7d.jpg);
+  background-size: cover;
+  background-position: center;
+}
+main {
+  opacity: 0;
+  position: fixed;
+  height: 69%;
+  width: 50%;
+  margin: 6% 25%;
+  display: grid;
+  grid-template-columns: 250px 1fr 1fr 1fr;
+  grid-template-rows: 220px 180px;
+  grid-template-areas:
+    "left-section right-top right-top right-top"
+    "left-section bottom-right-start bottom-right-mid bottom-right-end";
+    transition: all 0.8s ease-in-out;
+}
+main:hover{
+  opacity: 1;
+  cursor: pointer;
+  transition: all 0.9s cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+left-section {
+  grid-area: left-section;
+  background-image: url(https://i.pinimg.com/1200x/e0/4d/ee/e04deeedcc98cc93c7bdc1d3101e71dc.jpg);
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgb(255, 255, 255);
+}
+right-top {
+  grid-area: right-top;
+  background-image: url(https://i.pinimg.com/1200x/7d/a0/9a/7da09a832f92e6ea6c40273303bd86f3.jpg);
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgb(255, 255, 255);
+}
+bottom-right-start {
+  grid-area: bottom-right-start;
+  background-image: url(https://i.pinimg.com/736x/c3/2e/68/c32e6830454b0146208db28ea2533f2b.jpg);
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgb(255, 255, 255);
+}
+bottom-right-mid {
+  grid-area: bottom-right-mid;
+  background-image: url(https://i.pinimg.com/736x/1b/b3/39/1bb3394157498226cd77b3ad9207245a.jpg);
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgb(255, 255, 255);
+}
+bottom-right-end {
+  grid-area: bottom-right-end;
+  background-image: url(https://i.pinimg.com/1200x/a8/2f/cd/a82fcdb04e9fe19ef78397c79d9a5836.jpg);
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgb(255, 255, 255);
+}
