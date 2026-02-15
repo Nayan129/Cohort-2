@@ -60,7 +60,8 @@ async function getAllPostController(req, res) {
     });
   }
 
-  const decoded = null;
+  let decoded;
+  
 
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
