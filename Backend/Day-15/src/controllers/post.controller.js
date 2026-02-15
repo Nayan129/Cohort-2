@@ -90,19 +90,19 @@ async function getPostDetailsController(req, res) {
       message: "unauthorized access",
     });
   }
-  const decoded = null;
+  let decoded;
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
     return res.status(401).json({
-      message: "token not found",
+      message: "invalid token",
     });
   }
 
   const userId = decoded.id;
   const postId = req.params.postId;
 
-  const post = await postModel.findById(userId);
+  const post = await postModel.findById(postId);
 
   if (!post) {
     return res.status(404).json({
