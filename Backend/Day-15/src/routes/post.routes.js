@@ -13,4 +13,6 @@ postRouter.post(
 
 postRouter.get("/", postController.getAllPostController);
 
+postRouter.get("/details/:postId", postController.getPostDetailsController);
+
 module.exports = postRouter;

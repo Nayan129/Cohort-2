@@ -61,7 +61,6 @@ async function getAllPostController(req, res) {
   }
 
   let decoded;
-  
 
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -83,7 +82,50 @@ async function getAllPostController(req, res) {
   });
 }
 
+async function getPostDetailsController(req, res) {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "unauthorized access",
+    });
+  }
+  const decoded = null;
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return res.status(401).json({
+      message: "token not found",
+    });
+  }
+
+  const userId = decoded.id;
+  const postId = req.params.postId;
+
+  const post = await postModel.findById(userId);
+
+  if (!post) {
+    return res.status(404).json({
+      message: "post not found",
+    });
+  }
+
+  const isValidUser = post.user.toString() === userId;
+
+  if (!isValidUser) {
+    return res.status(403).json({
+      message: "forbidden content",
+    });
+  }
+
+  res.status(200).json({
+    message: "post details fetched successfully",
+    post,
+  });
+}
+
 module.exports = {
   createPostController,
   getAllPostController,
+  getPostDetailsController,
 };
