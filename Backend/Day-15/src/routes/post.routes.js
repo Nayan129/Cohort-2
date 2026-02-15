@@ -11,4 +11,6 @@ postRouter.post(
   postController.createPostController,
 );
 
+postRouter.get("/", postController.getAllPostController);
+
 module.exports = postRouter;

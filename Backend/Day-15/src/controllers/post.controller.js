@@ -10,6 +10,12 @@ const imageKit = new ImageKit({
 async function createPostController(req, res) {
   console.log(req.body, req.file);
 
+  if (!req.file) {
+    return res.status(400).json({
+      message: "Image file is required",
+    });
+  }
+
   const token = req.cookies.token;
 
   if (!token) {
@@ -18,12 +24,12 @@ async function createPostController(req, res) {
     });
   }
 
-  const decoded = null;
+  let decoded;
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
     return res.status(401).json({
-      message: "user not authorized",
+      message: "token invalid",
     });
   }
 
@@ -45,6 +51,38 @@ async function createPostController(req, res) {
   });
 }
 
+async function getAllPostController(req, res) {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "unauthorized user",
+    });
+  }
+
+  const decoded = null;
+
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return res.status(401).json({
+      message: "token invalid",
+    });
+  }
+
+  const userId = decoded.id;
+
+  const post = await postModel.find({
+    user: userId,
+  });
+
+  res.status(200).json({
+    message: "posts fetched successfully",
+    post,
+  });
+}
+
 module.exports = {
   createPostController,
+  getAllPostController,
 };
