@@ -10,7 +10,7 @@ async function userRegisterController(req, res) {
   });
 
   if (isUserAlreadyExist) {
-    return res.status(401).json({
+    return res.status(409).json({
       message:
         "user already exist" +
         (isUserAlreadyExist.email == email
@@ -41,7 +41,12 @@ async function userRegisterController(req, res) {
 
   res.status(201).json({
     message: "user register successfully",
-    user,
+    user: {
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+      profileImage: user.profileImage,
+    },
   });
 }
 
@@ -58,7 +63,7 @@ async function userLoginController(req, res) {
     });
   }
 
-  const passwordValid = await bcrypt.compare(user.password == password);
+  const passwordValid = await bcrypt.compare(password, user.password);
 
   if (!passwordValid) {
     return res.status(401).json({
