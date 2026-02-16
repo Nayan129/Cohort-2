@@ -12,4 +12,7 @@ authRouter.post(
   authController.userRegisterController,
 );
 
+// path will become : '/api/auth/login'
+authRouter.post("/login", authRouter.userLoginController);
+
 module.exports = authRouter;
