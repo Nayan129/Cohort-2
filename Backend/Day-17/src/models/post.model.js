@@ -5,7 +5,7 @@ const postSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  iamgeUrl: {
+  imageUrl: {
     type: String,
     required: [true, "imageUrl is required to create post"],
   },

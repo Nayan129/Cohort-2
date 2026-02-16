@@ -1,7 +1,7 @@
 const express = require("express");
-const authController = require("../controller/auth.controller")
+const authController = require("../controller/auth.controller");
 const multer = require("multer");
-const upload = multer({ Storage: multer.memoryStorage() });
+const upload = multer({ storage: multer.memoryStorage() });
 
 const authRouter = express.Router();
 
