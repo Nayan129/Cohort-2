@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 const followSchema = new mongoose.Schema(
   {
-    followee: {
+    follower: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
-      required: [true, "followe is required"],
+      required: [true, "follower is required"],
     },
     following: {
       type: mongoose.Schema.Types.ObjectId,
@@ -15,6 +15,9 @@ const followSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+
+// this code is for stop double follow
+followSchema.index({ follower: 1, following: 1 }, { unique: true });
 
 const followModel = mongoose.model("follow", followSchema);
 

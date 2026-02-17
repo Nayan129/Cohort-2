@@ -1,0 +1,9 @@
+const express = require("express");
+const followController = require("../controller/follow.controller");
+const identifyUser = require("../middlewares/auth.middleware");
+
+const followRouter = express.Router();
+
+followRouter.post("/:id", identifyUser, followController.followUserController);
+
+module.exports = followRouter;
