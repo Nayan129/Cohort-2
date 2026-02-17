@@ -15,4 +15,7 @@ postRouter.post(
 // route : GET "/api/posts/"
 postRouter.get("/", postController.getAllPostController);
 
+// route : GET "/api/posts/details/:id"
+postRouter.get("/details/:postId", postController.getPostDetailsController);
+
 module.exports = postRouter;
