@@ -4,6 +4,10 @@ const identifyUser = require("../middlewares/auth.middleware");
 
 const followRouter = express.Router();
 
-followRouter.post("/:id", identifyUser, followController.followUserController);
+followRouter.post(
+  "/follow/:username",
+  identifyUser,
+  followController.followUserController,
+);
 
 module.exports = followRouter;
