@@ -4,10 +4,18 @@ const identifyUser = require("../middlewares/auth.middleware");
 
 const followRouter = express.Router();
 
+// route : POST "/api/users/follow/:username"
 followRouter.post(
   "/follow/:username",
   identifyUser,
   followController.followUserController,
+);
+
+// route : DELETE "/api/users/unfollow/:username"
+followRouter.delete(
+  "/unfollow/:username",
+  identifyUser,
+  followController.unfollowController,
 );
 
 module.exports = followRouter;
