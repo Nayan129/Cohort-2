@@ -5,11 +5,14 @@ const upload = multer({ Storage: multer.memoryStorage() });
 
 const postRouter = express.Router();
 
-// routes : "/api/posts/"
+// route : POST "/api/posts/"
 postRouter.post(
   "/",
   upload.single("image"),
   postController.createPostController,
 );
+
+// route : GET "/api/posts/"
+postRouter.get("/", postController.getAllPostController);
 
 module.exports = postRouter;

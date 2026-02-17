@@ -20,7 +20,7 @@ async function createPostController(req, res) {
 
   if (!token) {
     return res.status(404).json({
-      message: "token not provided",
+      message: "unauthorized user",
     });
   }
 
@@ -29,7 +29,7 @@ async function createPostController(req, res) {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
     return res.status(401).json({
-      message: "this token is not provided by our JWT_SECRET",
+      message: "token not match",
     });
   }
 
@@ -51,6 +51,40 @@ async function createPostController(req, res) {
   });
 }
 
+async function getAllPostController(req, res) {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(404).json({
+      message: "unauthorized user",
+    });
+  }
+
+  let decoded;
+  try {
+    decoded = await jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return res.status(404).json({
+      message: "token not match",
+    });
+  }
+
+  const userId = decoded.id;
+  const post = await postModel.find({ user: userId });
+
+  if (!post) {
+    return res.status(403).json({
+      message: "forbidden content",
+    });
+  }
+
+  res.status(200).json({
+    message: "All Posts Fetched Successfully",
+    post,
+  });
+}
+
 module.exports = {
   createPostController,
+  getAllPostController,
 };
