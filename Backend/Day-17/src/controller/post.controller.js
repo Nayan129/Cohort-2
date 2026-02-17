@@ -16,23 +16,6 @@ async function createPostController(req, res) {
     });
   }
 
-  const token = req.cookies.token;
-
-  if (!token) {
-    return res.status(404).json({
-      message: "unauthorized user",
-    });
-  }
-
-  let decoded;
-  try {
-    decoded = jwt.verify(token, process.env.JWT_SECRET);
-  } catch (error) {
-    return res.status(401).json({
-      message: "token not match",
-    });
-  }
-
   const file = await imageKit.files.upload({
     file: await toFile(Buffer.from(req.file.buffer), "file"),
     fileName: "MillieBobbyBrown",
@@ -42,7 +25,7 @@ async function createPostController(req, res) {
   const post = await postModel.create({
     caption: req.body.caption,
     imageUrl: file.url,
-    user: decoded.id,
+    user: req.user.id,
   });
 
   res.status(201).json({
@@ -52,24 +35,7 @@ async function createPostController(req, res) {
 }
 
 async function getAllPostController(req, res) {
-  const token = req.cookies.token;
-
-  if (!token) {
-    return res.status(404).json({
-      message: "unauthorized user",
-    });
-  }
-
-  let decoded;
-  try {
-    decoded = await jwt.verify(token, process.env.JWT_SECRET);
-  } catch (error) {
-    return res.status(404).json({
-      message: "token not match",
-    });
-  }
-
-  const userId = decoded.id;
+  const userId = req.user.id;
   const post = await postModel.find({ user: userId });
 
   if (!post) {
@@ -85,24 +51,7 @@ async function getAllPostController(req, res) {
 }
 
 async function getPostDetailsController(req, res) {
-  const token = req.cookies.token;
-
-  if (!token) {
-    return res.status(401).json({
-      message: "unauthorized user",
-    });
-  }
-
-  let decoded;
-  try {
-    decoded = jwt.verify(token, process.env.JWT_SECRET);
-  } catch (error) {
-    return res.status(401).json({
-      message: "token not match",
-    });
-  }
-
-  const userId = decoded.id;
+  const userId = req.user.id;
   const postId = req.params.postId;
 
   const post = await postModel.findById(postId);
