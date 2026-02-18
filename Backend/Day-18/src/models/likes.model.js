@@ -5,10 +5,12 @@ const likeSchema = new mongoose.Schema(
     post: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "post",
+      required: true,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
+      required: true,
     },
   },
   {
@@ -16,7 +18,7 @@ const likeSchema = new mongoose.Schema(
   },
 );
 
-likeSchema.index({ post: 1 }, { unique: true });
+likeSchema.index({ post: 1, user: 1 }, { unique: true });
 
 const likeModel = mongoose.model("like", likeSchema);
 

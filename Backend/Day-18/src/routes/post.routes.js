@@ -24,4 +24,11 @@ postRouter.get(
   postController.getPostDetailsController,
 );
 
+// routes : POST "/api/posts/like/:postid"
+postRouter.post(
+  "/like/:postId",
+  identifyUser,
+  postController.likePostController,
+);
+
 module.exports = postRouter;
