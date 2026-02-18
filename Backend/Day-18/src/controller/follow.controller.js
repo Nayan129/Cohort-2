@@ -22,15 +22,29 @@ async function followUserController(req, res) {
       });
     }
 
-    const userAlreadyFollow = await followModel.findOne({
+    const alreadyFollow = await followModel.findOne({
       follower: accountHolderUser,
       following: followingAnotherUser,
     });
 
-    if (userAlreadyFollow) {
-      return res.status(409).json({
-        message: `you already follow this user`,
-      });
+    if (alreadyFollow) {
+      if (alreadyFollow.status === "pending") {
+        return res.status(409).json({
+          message: "follow request is pending",
+        });
+      } else if (alreadyFollow.status === "accepted") {
+        return res.status(200).json({
+          message: "you already follow this user",
+        });
+      } else if (alreadyFollow.status === "rejected") {
+        alreadyFollow.status = "pending";
+        await alreadyFollow.save();
+
+        return res.status(200).json({
+          message: "request rejected ❌, follow request sent again",
+          alreadyFollow,
+        });
+      }
     }
 
     const accountDetails = await followModel.create({
@@ -39,7 +53,7 @@ async function followUserController(req, res) {
     });
 
     res.status(201).json({
-      message: `you started following this user`,
+      message: `follow request sent...`,
       accountDetails,
     });
   } catch (error) {
@@ -78,21 +92,21 @@ async function unfollowController(req, res) {
       following: followingAnotherUser,
     });
 
-    if (!isFollowByMe) {
+    if (!isFollowByMe || isFollowByMe.status !== "accepted") {
       return res.status(409).json({
         message: "you not follow this user yet...",
       });
+    } else {
+      const unfollowUser = await followModel.findOneAndDelete({
+        follower: accountHolderUser,
+        following: followingAnotherUser,
+      });
+
+      res.status(200).json({
+        message: "you Unfollow user successfully",
+        unfollowUser,
+      });
     }
-
-    const unfollowUser = await followModel.findOneAndDelete({
-      follower: accountHolderUser,
-      following: followingAnotherUser,
-    });
-
-    res.status(200).json({
-      message: "you Unfollow user successfully",
-      unfollowUser,
-    });
   } catch (error) {
     console.log(error);
 
