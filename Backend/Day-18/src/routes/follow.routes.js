@@ -11,6 +11,13 @@ followRouter.post(
   followController.followUserController,
 );
 
+// route : GET "/api/users/requests/"
+followRouter.get(
+  "/request/",
+  identifyUser,
+  followController.pendingRequestController,
+);
+
 // route : DELETE "/api/users/unfollow/:username"
 followRouter.delete(
   "/unfollow/:username",

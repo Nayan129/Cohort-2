@@ -117,7 +117,28 @@ async function unfollowController(req, res) {
   }
 }
 
+async function pendingRequestController(req, res) {
+  const username = req.user.username;
+
+  const pendingRequests = await followModel.find({
+    following: username,
+    status: "pending",
+  });
+
+  if (pendingRequests.length === 0) {
+    return res.status(404).json({
+      message: "no requests found ",
+    });
+  }
+
+  res.status(200).json({
+    message: "pending requests fetched successfully",
+    pendingRequests,
+  });
+}
+
 module.exports = {
   followUserController,
   unfollowController,
+  pendingRequestController,
 };
