@@ -172,9 +172,37 @@ async function acceptRequestController(req, res) {
   });
 }
 
+async function rejectRequestController(req, res) {
+  const username = req.user.username;
+  const followRequest = req.params.username;
+
+  const requestStatus = await followModel.findOne({
+    follower: followRequest,
+    following: username,
+    status: "pending",
+  });
+
+  if (requestStatus.length === 0) {
+    return res.status(404).json({
+      message: "no pending requests ",
+    });
+  }
+
+  const rejectRequest = await followModel.findOneAndDelete({
+    follower: followRequest,
+    following: username,
+  });
+
+  res.status(203).json({
+    message: "follow request rejected , user can send request again",
+    rejectRequest,
+  });
+}
+
 module.exports = {
   followUserController,
   unfollowController,
   pendingRequestController,
   acceptRequestController,
+  rejectRequestController,
 };

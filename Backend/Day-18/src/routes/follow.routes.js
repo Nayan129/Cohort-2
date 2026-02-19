@@ -26,6 +26,13 @@ followRouter.put(
   followController.acceptRequestController,
 );
 
+// route : DELETE "/api/users/reject/:username"
+followRouter.delete(
+  "/reject/:username",
+  identifyUser,
+  followController.rejectRequestController,
+);
+
 // route : DELETE "/api/users/unfollow/:username"
 followRouter.delete(
   "/unfollow/:username",
