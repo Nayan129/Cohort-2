@@ -18,6 +18,14 @@ followRouter.get(
   followController.pendingRequestController,
 );
 
+// route : PUT "/api/users/accept/:username"
+
+followRouter.put(
+  "/acceptRequest/:username",
+  identifyUser,
+  followController.acceptRequestController,
+);
+
 // route : DELETE "/api/users/unfollow/:username"
 followRouter.delete(
   "/unfollow/:username",

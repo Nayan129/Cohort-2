@@ -137,8 +137,44 @@ async function pendingRequestController(req, res) {
   });
 }
 
+async function acceptRequestController(req, res) {
+  const username = req.user.username;
+  const followRequest = req.params.username;
+
+  const isPendingRequest = await followModel.findOne({
+    follower: followRequest, //request sender
+    following: username, //login user
+    status: "pending",
+  });
+
+  if (!isPendingRequest) {
+    return res.status(404).json({
+      message: "no pending requests",
+    });
+  }
+
+  const acceptRequest = await followModel.findOneAndUpdate(
+    {
+      follower: followRequest,
+      following: username,
+    },
+    {
+      status: "accepted",
+    },
+    {
+      new: true,
+    },
+  );
+
+  res.status(200).json({
+    message: "request accepted successfully",
+    acceptRequest,
+  });
+}
+
 module.exports = {
   followUserController,
   unfollowController,
   pendingRequestController,
+  acceptRequestController,
 };
