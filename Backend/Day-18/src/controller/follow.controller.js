@@ -3,17 +3,17 @@ const userModel = require("../models/user.model");
 
 async function followUserController(req, res) {
   try {
-    let accountHolderUser = req.user.username;
-    let followingAnotherUser = req.params.username;
+    let loggedInUser = req.user.username;
+    let requestSender = req.params.username;
 
-    if (accountHolderUser === followingAnotherUser) {
+    if (loggedInUser === requestSender) {
       return res.status(409).json({
         message: "you cannot follow yourself",
       });
     }
 
     const isUserExist = await userModel.findOne({
-      username: followingAnotherUser,
+      loggedInUser: requestSender,
     });
 
     if (!isUserExist) {
@@ -23,8 +23,8 @@ async function followUserController(req, res) {
     }
 
     const alreadyFollow = await followModel.findOne({
-      follower: accountHolderUser,
-      following: followingAnotherUser,
+      follower: loggedInUser,
+      following: requestSender,
     });
 
     if (alreadyFollow) {
@@ -48,8 +48,8 @@ async function followUserController(req, res) {
     }
 
     const accountDetails = await followModel.create({
-      follower: accountHolderUser,
-      following: followingAnotherUser,
+      follower: loggedInUser,
+      following: requestSender,
     });
 
     res.status(201).json({
@@ -68,17 +68,17 @@ async function followUserController(req, res) {
 
 async function unfollowController(req, res) {
   try {
-    let accountHolderUser = req.user.username;
-    let followingAnotherUser = req.params.username;
+    let loggedInUser = req.user.username;
+    let requestSender = req.params.username;
 
-    if (accountHolderUser === followingAnotherUser) {
+    if (loggedInUser === requestSender) {
       return res.status(409).json({
         message: "you cant unfollow yourself",
       });
     }
 
     const isUserExist = await userModel.findOne({
-      username: followingAnotherUser,
+      loggedInUser: requestSender,
     });
 
     if (!isUserExist) {
@@ -88,8 +88,8 @@ async function unfollowController(req, res) {
     }
 
     const isFollowByMe = await followModel.findOne({
-      follower: accountHolderUser,
-      following: followingAnotherUser,
+      follower: loggedInUser,
+      following: requestSender,
     });
 
     if (!isFollowByMe || isFollowByMe.status !== "accepted") {
@@ -98,8 +98,8 @@ async function unfollowController(req, res) {
       });
     } else {
       const unfollowUser = await followModel.findOneAndDelete({
-        follower: accountHolderUser,
-        following: followingAnotherUser,
+        follower: loggedInUser,
+        following: requestSender,
       });
 
       res.status(200).json({
@@ -118,10 +118,10 @@ async function unfollowController(req, res) {
 }
 
 async function pendingRequestController(req, res) {
-  const username = req.user.username;
+  const loggedInUser = req.user.username;
 
   const pendingRequests = await followModel.find({
-    following: username,
+    following: loggedInUser,
     status: "pending",
   });
 
@@ -138,12 +138,12 @@ async function pendingRequestController(req, res) {
 }
 
 async function acceptRequestController(req, res) {
-  const username = req.user.username;
-  const followRequest = req.params.username;
+  const loggedInUser = req.user.username;
+  const requestSender = req.params.username;
 
   const isPendingRequest = await followModel.findOne({
-    follower: followRequest, //request sender
-    following: username, //login user
+    follower: requestSender, //request sender
+    following: loggedInUser, //login user
     status: "pending",
   });
 
@@ -155,8 +155,8 @@ async function acceptRequestController(req, res) {
 
   const acceptRequest = await followModel.findOneAndUpdate(
     {
-      follower: followRequest,
-      following: username,
+      follower: requestSender,
+      following: loggedInUser,
     },
     {
       status: "accepted",
@@ -173,12 +173,12 @@ async function acceptRequestController(req, res) {
 }
 
 async function rejectRequestController(req, res) {
-  const username = req.user.username;
-  const followRequest = req.params.username;
+  const loggedInUser = req.user.username;
+  const requestSender = req.params.username;
 
   const requestStatus = await followModel.findOne({
-    follower: followRequest,
-    following: username,
+    follower: requestSender,
+    following: loggedInUser,
     status: "pending",
   });
 
@@ -189,12 +189,12 @@ async function rejectRequestController(req, res) {
   }
 
   const rejectRequest = await followModel.findOneAndDelete({
-    follower: followRequest,
-    following: username,
+    follower: requestSender,
+    following: loggedInUser,
   });
 
   res.status(203).json({
-    message: "follow request rejected , user can send request again",
+    message: "follow request rejected",
     rejectRequest,
   });
 }
