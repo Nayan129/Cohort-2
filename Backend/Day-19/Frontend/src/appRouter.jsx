@@ -11,4 +11,8 @@ export const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/",
+    element: <h1>welcome user, this is React-architecture tutorial</h1>,
+  },
 ]);
