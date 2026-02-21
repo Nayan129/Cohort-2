@@ -6,7 +6,7 @@ import "./features/shared/globle.scss";
 function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </AuthProvider>
   );
 }

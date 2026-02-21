@@ -1,5 +1,4 @@
 import axios from "axios";
-// import {login,register,get-me}
 
 const api = axios.create({
   baseURL: "http://localhost:3000/api/auth",
