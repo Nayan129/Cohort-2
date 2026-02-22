@@ -12,7 +12,7 @@ main {
 
   .form-container {
     @include flex-column(0.7rem);
-    min-width: 50vw;
+    min-width: 30vw;
   }
 
   form {
@@ -25,7 +25,5 @@ main {
       border: none;
       outline: none;
     }
-
-    
   }
 }

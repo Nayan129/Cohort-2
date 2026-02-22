@@ -6,7 +6,12 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:5173",
+  }),
+);
 
 // routes import
 const authRouter = require("./routes/auth.routes");
