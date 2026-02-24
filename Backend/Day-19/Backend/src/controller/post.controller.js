@@ -117,7 +117,7 @@ async function likePostController(req, res) {
 
 // this controller is for instagram feed to show
 async function getFeedController(req, res) {
-  const posts = postModel.find();
+  const posts = await postModel.find().populate("user");
 
   res.status(200).json({
     message: "post's fetched successfully..",
