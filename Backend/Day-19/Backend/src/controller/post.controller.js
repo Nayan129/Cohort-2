@@ -115,9 +115,20 @@ async function likePostController(req, res) {
   }
 }
 
+// this controller is for instagram feed to show
+async function getFeedController(req, res) {
+  const posts = postModel.find();
+
+  res.status(200).json({
+    message: "post's fetched successfully..",
+    posts,
+  });
+}
+
 module.exports = {
   createPostController,
   getAllPostController,
   getPostDetailsController,
   likePostController,
+  getFeedController,
 };

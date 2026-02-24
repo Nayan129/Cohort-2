@@ -19,7 +19,9 @@ export const useAuth = () => {
     setLoading(true);
 
     const response = await register(username, password, email);
+
     setUser(response.user);
+    
     setLoading(false);
   };
 

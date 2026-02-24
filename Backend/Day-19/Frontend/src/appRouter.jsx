@@ -4,15 +4,15 @@ import Register from "./features/auth/pages/Register";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <h1 className="landing">Welcome to Instagram Clone Project</h1>,
-  },
-  {
     path: "/login",
     element: <Login />,
   },
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/",
+    element: <h1 className="landing">Welcome to Instagram Clone Project</h1>,
   },
 ]);

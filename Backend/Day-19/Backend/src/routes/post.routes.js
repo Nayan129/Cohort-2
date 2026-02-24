@@ -31,4 +31,6 @@ postRouter.post(
   postController.likePostController,
 );
 
+// routes : GET "/api/posts/feed" //private
+postRouter.get("/feed", identifyUser, postController.getFeedController);
 module.exports = postRouter;
