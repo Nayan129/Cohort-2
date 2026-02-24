@@ -2,17 +2,23 @@ main {
   display: flex;
   justify-content: center;
   padding: 1rem;
+  height: 100vh;
+  // overflow: hidden;
 
   .feed {
     width: 100%;
     max-width: 470px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .posts {
     background-color: #111;
     border: 1px solid #262626;
     border-radius: 10px;
-    overflow-y: scroll;
+    flex: 1;
+    overflow-y: auto;
   }
 
   .posts::-webkit-scrollbar {
@@ -42,12 +48,6 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
-      // background: conic-gradient(
-      //   from 45deg,
-      //   rgb(231, 91, 3),
-      //   rgb(185, 11, 92),
-      //   rgb(231, 91, 3)
-      // );
 
       img {
         height: 2.6rem;
@@ -60,9 +60,9 @@ main {
     }
   }
 
-  .post {
+  .user-post {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    max-height: 90vh;
     object-fit: cover;
   }
 
@@ -94,6 +94,7 @@ main {
     font-size: 0.9rem;
     font-weight: 400;
     padding: 0 0.2rem 0.8rem;
+    border-bottom: 1px solid rgb(44, 43, 43);
   }
 }
 
