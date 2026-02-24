@@ -1,0 +1,137 @@
+main {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+
+  .feed {
+    width: 100%;
+    max-width: 470px;
+  }
+
+  .posts {
+    background-color: #111;
+    border: 1px solid #262626;
+    border-radius: 10px;
+    overflow-y: scroll;
+  }
+
+  .posts::-webkit-scrollbar {
+    display: none;
+  }
+
+  .users {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.8rem;
+  }
+
+  /* User profile */
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+
+    h4 {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .img-wrapper {
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // background: conic-gradient(
+      //   from 45deg,
+      //   rgb(231, 91, 3),
+      //   rgb(185, 11, 92),
+      //   rgb(231, 91, 3)
+      // );
+
+      img {
+        height: 2.6rem;
+        width: 2.6rem;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 50%;
+        border: 2px solid #ff0066;
+      }
+    }
+  }
+
+  .post {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0.2rem;
+
+    button {
+      background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    svg {
+      height: 1.6rem;
+      color: white;
+    }
+
+    .left-icons,
+    .right-icons {
+      display: flex;
+      gap: 0.9rem;
+    }
+  }
+
+  .caption {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0 0.2rem 0.8rem;
+  }
+}
+
+// media queries for responsive....
+@media (max-width: 600px) {
+  main {
+    padding: 0;
+
+    .feed {
+      max-width: 100%;
+    }
+
+    .posts {
+      border: none;
+      border-radius: 0;
+    }
+
+    .user-profile img {
+      height: 2.3rem;
+      width: 2.3rem;
+    }
+
+    .icons svg {
+      height: 1.4rem;
+    }
+
+    .caption {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  main {
+    justify-content: center;
+
+    .feed {
+      max-width: 500px;
+    }
+  }
+}

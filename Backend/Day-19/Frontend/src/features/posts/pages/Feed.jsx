@@ -1,9 +1,16 @@
-const feed = () => {
+import "../styles/feed.scss";
+import Post from "../components/post";
+
+const Feed = () => {
   return (
-    <div>
+    <main>
+      <div className="feed">
+        <div className="posts">
+          <Post />
+        </div>
+      </div>
+    </main>
+  );
+};
 
-    </div>
-  )
-}
-
-export default feed
+export default Feed;
