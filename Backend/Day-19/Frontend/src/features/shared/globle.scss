@@ -35,3 +35,19 @@ body,
     margin-top: 14rem;
   }
 }
+
+.createBtn {
+  padding: 0.7rem;
+  border-radius: 0.4rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  background: rgb(192, 20, 20);
+  color: white;
+  font-weight: 600;
+}
+.createBtn:active {
+  transform: scale(0.95);
+}
+
+

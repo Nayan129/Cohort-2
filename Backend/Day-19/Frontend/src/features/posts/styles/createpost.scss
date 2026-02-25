@@ -1,0 +1,21 @@
+.selectImage {
+  background: rgb(235, 235, 235);
+  padding: 0.5rem 2rem;
+  color: rgb(45, 45, 45);
+  font-weight: 700;
+  cursor: pointer;
+  width: fit-content;
+  border-radius: 0.8rem;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.selectImage svg {
+  height: 2rem;
+}
+#caption {
+  padding: 0.9rem;
+  font-weight: 600;
+}
