@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { PostContext } from "../post.context";
 
 import { getFeed } from "../services/post.api";
+import { createPost } from "../services/post.api";
 
 export const usePost = () => {
   const context = useContext(PostContext);
@@ -17,5 +18,18 @@ export const usePost = () => {
     }
   };
 
-  return { loading, feed, post, handleGetFeed };
+  const handleCreatePost = async () => {
+    loading(true);
+    const data = await createPost();
+    setFeed([data.post, ...feed]);
+    setLoading(false);
+  };
+
+  // this useEffect we use for hydration
+
+  useEffect(() => {
+    handleGetFeed();
+  }, []);
+
+  return { loading, feed, post, handleGetFeed, handleCreatePost };
 };
