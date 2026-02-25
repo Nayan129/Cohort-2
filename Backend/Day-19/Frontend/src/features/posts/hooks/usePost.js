@@ -1,8 +1,7 @@
 import { useContext, useEffect } from "react";
 import { PostContext } from "../post.context";
 
-import { getFeed } from "../services/post.api";
-import { createPost } from "../services/post.api";
+import { getFeed, createPost, toogleLike } from "../services/post.api";
 
 export const usePost = () => {
   const context = useContext(PostContext);
@@ -18,11 +17,16 @@ export const usePost = () => {
     }
   };
 
-  const handleCreatePost = async () => {
-    loading(true);
-    const data = await createPost();
+  const handleCreatePost = async (imageFile, caption) => {
+    setLoading(true);
+    const data = await createPost(imageFile, caption);
     setFeed([data.post, ...feed]);
     setLoading(false);
+  };
+
+  const handleLikeUnlike = async (postId) => {
+    await toogleLike(postId);
+    handleGetFeed();
   };
 
   // this useEffect we use for hydration
@@ -31,5 +35,12 @@ export const usePost = () => {
     handleGetFeed();
   }, []);
 
-  return { loading, feed, post, handleGetFeed, handleCreatePost };
+  return {
+    loading,
+    feed,
+    post,
+    handleGetFeed,
+    handleCreatePost,
+    handleLikeUnlike,
+  };
 };

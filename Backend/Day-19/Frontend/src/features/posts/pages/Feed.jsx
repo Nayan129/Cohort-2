@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Nav from "../../shared/components/Nav";
 
 const Feed = () => {
-  const { feed, loading, handleGetFeed } = usePost();
+  const { feed, handleGetFeed, loading, handleLikeUnlike } = usePost();
 
   useEffect(() => {
     if (!feed || feed.length === 0) {
@@ -27,7 +27,13 @@ const Feed = () => {
         <Nav className="navbar" />
         <div className="posts">
           {feed.map((post) => (
-            <Post key={post._id} user={post.user} post={post} />
+            <Post
+              key={post._id}
+              user={post.user}
+              post={post}
+              loading={loading}
+              handleLikeUnlike={handleLikeUnlike}
+            />
           ))}
         </div>
       </div>

@@ -17,6 +17,15 @@ export async function createPost(imageFile, caption) {
   formData.append("image", imageFile);
   formData.append("caption", caption);
 
-  const response = await api.post("/posts", formData);
+  const response = await api.post("/posts", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+}
+
+export async function toogleLike(postId) {
+  const response = await api.post("/posts/like/" + postId);
   return response.data;
 }

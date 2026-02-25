@@ -1,12 +1,5 @@
-import { useEffect, useState } from "react";
-
-const Post = ({ user, post }) => {
-  const [like, setLike] = useState(post.isLiked);
-
-  function handleLike() {
-    setLike((prev) => !prev);
-  }
-
+const Post = ({ user, post, loading, handleLikeUnlike }) => {
+  console.log(post);
   return (
     <div className="post">
       <div className="users">
@@ -21,9 +14,9 @@ const Post = ({ user, post }) => {
 
         <div className="icons">
           <div className="left-icons">
-            <button onClick={handleLike}>
+            <button onClick={() => handleLikeUnlike(post._id)}>
               <svg
-                className={like ? "like" : ""}
+                className={post.isLiked ? "like" : ""}
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
