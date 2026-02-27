@@ -2,7 +2,12 @@ const express = require("express");
 const postController = require("../controller/post.controller");
 const identifyUser = require("../middlewares/auth.middleware");
 const multer = require("multer");
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+  storage: multer.memoryStorage(),
+
+  // added limit so bufer not crash if large file uploading
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
 
 const postRouter = express.Router();
 

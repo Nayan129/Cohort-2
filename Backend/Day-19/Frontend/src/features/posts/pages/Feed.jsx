@@ -1,5 +1,5 @@
 import "../styles/feed.scss";
-import Post from "../components/post";
+import Post from "../components/Post";
 import { usePost } from "../hooks/usePost";
 import { useEffect } from "react";
 import Nav from "../../shared/components/Nav";
