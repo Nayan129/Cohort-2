@@ -47,11 +47,14 @@ async function registerController(req, res) {
 /* Loggin user controller*/
 async function loginController(req, res) {
   const { username, password, email } = req.body;
-  const isUserExist = await userModel.find({
-    $or: [{ username: username }, { email: email }],
-  });
 
-  if (!isUserExist) {
+  const user = await userModel
+    .findOne({
+      $or: [{ username: username }, { email: email }],
+    })
+    .select("+password");
+
+  if (!user) {
     return res.status(401).json({
       message: "Invalid Credentials",
     });
@@ -65,10 +68,14 @@ async function loginController(req, res) {
     });
   }
 
-  const token = jwt.sign({
-    id: user._id,
-    username: user.username,
-  });
+  const token = jwt.sign(
+    {
+      id: user._id,
+      username: user.username,
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "1d" },
+  );
 
   res.cookie("token", token);
 
@@ -81,7 +88,17 @@ async function loginController(req, res) {
   });
 }
 
-async function getMeController(req, res) {}
+async function getMeController(req, res) {
+  const userId = req.user.id;
+  const user = await userModel.findById(userId);
+
+  res.status(200).json({
+    user: {
+      username: user.username,
+      email: user.email,
+    },
+  });
+}
 
 module.exports = {
   registerController,
