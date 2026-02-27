@@ -8,4 +8,6 @@ authRouter.post("/register", identifyUser, authController.registerController);
 
 authRouter.post("/login", identifyUser, authController.loginController);
 
+authRouter.get("/get-me", identifyUser, authController.getMeController);
+
 module.exports = authRouter;

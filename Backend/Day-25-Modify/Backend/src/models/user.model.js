@@ -14,8 +14,12 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "password is required"],
+    select: false,
   },
 });
+
+// userSchema.pre("save", function (next) {});
+// userSchema.post("save", function (next) {});
 
 const userModel = mongoose.model("user", userSchema);
 
