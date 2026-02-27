@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 async function registerController(req, res) {
   const { username, email, password } = req.body;
 
-  const isUserAlreadyExist = await userModel.find({
+  const isUserAlreadyExist = await userModel.findOne({
     $or: [{ username }, { email }],
   });
 
