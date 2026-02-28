@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { init, detect } from "../utils/face.utils";
+import "../styles/faceExpression.scss";
 
 export default function FaceExpression() {
   const videoRef = useRef(null);
@@ -29,25 +30,11 @@ export default function FaceExpression() {
   }, []);
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <video
-        ref={videoRef}
-        style={{ width: "500px", borderRadius: "12px" }}
-        playsInline
-      />
-      <h2>{expression}</h2>
+    <div className="face-exp">
+      <video ref={videoRef} playsInline />
+      <h2 className="detect">{expression}</h2>
       <button
-        style={{
-          width: "200px",
-          borderRadius: "12px",
-          padding: "15px 10px",
-          background: "green",
-          color: "white",
-          fontWeight: "600",
-          border: "none",
-          cursor: "pointer",
-          textAlign: "center",
-        }}
+        className="detect-btn"
         onClick={() => detect({ landmarkerRef, videoRef, setExpression })}
       >
         Detect expression

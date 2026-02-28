@@ -1,0 +1,11 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.app {
+  background: linear-gradient(rgb(121, 121, 144), rgb(104, 88, 212), pink);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

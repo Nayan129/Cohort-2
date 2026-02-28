@@ -1,8 +1,8 @@
 import FaceExpression from "./features/Expression/components/FaceExpression";
-
+import "./features/shared/global.scss";
 const App = () => {
   return (
-    <div>
+    <div className="app">
       <FaceExpression />
     </div>
   );
