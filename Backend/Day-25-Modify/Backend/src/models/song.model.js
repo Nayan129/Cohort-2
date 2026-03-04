@@ -13,9 +13,13 @@ const songSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // mood: {
-  //   enum: ["sad", "happy", "suprised"],
-  // },
+  mood: {
+    type: String,
+    enum: {
+      values: ["sad", "happy", "suprised"],
+      message: "Enum this is",
+    },
+  },
 });
 
 const songModel = mongoose.model("songs", songSchema);
