@@ -49,7 +49,7 @@ async function registerController(req, res) {
 
 /* Loggin user controller*/
 async function loginController(req, res) {
-  console.log(req.body);
+
   const { username, password, email } = req.body;
 
   const user = await userModel
