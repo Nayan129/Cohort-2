@@ -30,3 +30,22 @@ main {
   min-width: 18rem;
   border-radius: 0.5rem;
 }
+
+.btn {
+  padding: 0.7rem;
+  margin-top: 1.2rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: rgb(228, 108, 2);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+}
+a {
+  color: rgb(239, 94, 4);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
