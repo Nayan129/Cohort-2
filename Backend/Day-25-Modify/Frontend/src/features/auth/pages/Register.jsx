@@ -1,3 +1,4 @@
+import "../styles/register.scss";
 const Register = () => {
   return (
     <main className="register-page">

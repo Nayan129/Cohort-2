@@ -21,3 +21,12 @@
   align-items: center;
   justify-content: center;
 }
+
+main {
+  border: 2px solid rgb(204, 204, 204);
+  padding-inline: 2rem;
+  padding-block: 4rem;
+  color: whitesmoke;
+  min-width: 18rem;
+  border-radius: 0.5rem;
+}
