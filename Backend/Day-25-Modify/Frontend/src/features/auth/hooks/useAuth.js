@@ -1,8 +1,10 @@
 import { login, register, getMe, logout } from "../services/auth.api";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../auth.context";
+import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
+  const navigate = useNavigate();
   /* we import AuthContext and useContext to get data and use it in app anywhere  || it is state layer handling*/
   const context = useContext(AuthContext);
   const { user, setUser, loading, setLoading } = context;
@@ -23,10 +25,19 @@ export const useAuth = () => {
   }
 
   async function handleGetMe() {
-    setLoading(true);
-    const data = await getMe();
-    setUser(data.user);
-    setLoading(false);
+    try {
+      setLoading(true);
+
+      const data = await getMe();
+      setUser(data.user);
+    } catch (error) {
+      if (error.response?.status === 401) {
+        setUser(null);
+        navigate("/login"); // redirect
+      }
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleLogout() {
