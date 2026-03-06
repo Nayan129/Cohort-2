@@ -1,9 +1,11 @@
 .face-exp {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 0.7rem;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+
   font-family:
     system-ui,
     -apple-system,
@@ -17,25 +19,89 @@
     "Helvetica Neue",
     sans-serif;
 
+  /* prevent layout shifts */
+  max-width: 520px;
+  margin: auto;
+
   video {
-    width: 450px;
-    border-radius: 0.7rem;
+    width: 100%;
+    max-width: 450px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    /* better rendering */
+    backface-visibility: hidden;
+    transform: translateZ(0);
+
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
   }
+
   .detect {
-    color: rgb(233, 231, 231);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #e9e7e7;
+    letter-spacing: 0.3px;
+
+    /* avoid layout shifts */
+    min-height: 28px;
   }
+
   .detect-btn {
-    padding: 0.7rem 1rem;
-    text-align: center;
-    margin-right: 1rem;
+    padding: 0.75rem 1.3rem;
     border: none;
-    border-radius: 0.7rem;
-    cursor: pointer;
-    background: rgb(38, 214, 38);
+    border-radius: 10px;
+
     font-weight: 700;
-    color: rgb(2, 2, 2);
+    font-size: 0.95rem;
+
+    cursor: pointer;
+
+    background: linear-gradient(135deg, rgb(38, 214, 38), rgb(20, 180, 20));
+
+    color: #000;
+
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease,
+      filter 0.15s ease;
+
+    will-change: transform;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    &:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    &:active {
+      transform: scale(0.94);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgb(38, 214, 38);
+      outline-offset: 3px;
+    }
   }
-  & :active {
-    transform: scale(0.9);
+
+  /* mobile responsiveness */
+  @media (max-width: 600px) {
+    padding: 1rem;
+
+    video {
+      max-width: 100%;
+    }
+
+    .detect {
+      font-size: 1.1rem;
+    }
+
+    .detect-btn {
+      width: 100%;
+    }
   }
 }

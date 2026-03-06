@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { init, detect } from "../utils/face.utils";
 import "../styles/faceExpression.scss";
 
@@ -6,8 +6,6 @@ export default function FaceExpression({ onClick }) {
   const videoRef = useRef(null);
   const landmarkerRef = useRef(null);
   const streamRef = useRef(null);
-
-  //this stream,videoRef,landmarkRef we have to send in props ans setExpression also
 
   const [expression, setExpression] = useState("Detecting...");
 
@@ -19,29 +17,27 @@ export default function FaceExpression({ onClick }) {
     start();
 
     return () => {
-      if (landmarkerRef.current) {
-        landmarkerRef.current.close();
-      }
+      landmarkerRef.current?.close();
 
-      if (videoRef.current?.srcObject) {
-        videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
-      }
+      videoRef.current?.srcObject?.getTracks().forEach((track) => track.stop());
     };
   }, []);
 
-  async function handleClick() {
-    const expression = detect({ landmarkerRef, videoRef, setExpression });
+  const handleClick = useCallback(() => {
+    const result = detect({ landmarkerRef, videoRef, setExpression });
 
-    if (!expression) return;
+    if (!result) return;
 
-    onClick(expression);
-  }
+    onClick(result);
+  }, [onClick]);
+
   return (
     <div className="face-exp">
-      <video ref={videoRef} playsInline />
+      <video ref={videoRef} playsInline autoPlay muted />
       <h2 className="detect">{expression}</h2>
-      <button className="detect-btn" onClick={() => handleClick()}>
-        Detect expression
+
+      <button className="detect-btn" onClick={handleClick}>
+        Detect Expression
       </button>
     </div>
   );
