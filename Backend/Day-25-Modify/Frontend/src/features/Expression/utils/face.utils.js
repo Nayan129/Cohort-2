@@ -1,5 +1,9 @@
 import { FaceLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
 
+// to reduce load from CPU
+let lastDetectionTime = 0;
+const DETECTION_INTERVAL = 2000;
+
 export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
   const vision = await FilesetResolver.forVisionTasks(
     "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm",
@@ -23,6 +27,12 @@ export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
 };
 
 export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
+
+  const now = Date.now();
+  if (now - lastDetectionTime < DETECTION_INTERVAL) return;
+  lastDetectionTime = now;
+
+  
   if (!landmarkerRef.current || !videoRef.current) return;
 
   const results = landmarkerRef.current.detectForVideo(
