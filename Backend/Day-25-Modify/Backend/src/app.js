@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const errorHandler = require("./middlewares/error.middleware");
 
 const app = express();
 
@@ -12,12 +13,13 @@ app.use(
     credentials: true,
   }),
 );
+app.use(errorHandler);
 
 /**
  * Routes import and use here..
  **/
 const authRouter = require("./routes/auth.route");
-const songRouter = require("./routes/songs.route");
+const songRouter = require("./routes/song.route");
 app.use("/api/auth", authRouter);
 app.use("/api/songs", songRouter);
 
