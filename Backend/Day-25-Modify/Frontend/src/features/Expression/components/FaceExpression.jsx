@@ -7,14 +7,21 @@ export default function FaceExpression({ onClick }) {
   const landmarkerRef = useRef(null);
   const streamRef = useRef(null);
 
-  const [expression, setExpression] = useState("Detecting...");
+  const [expression, setExpression] = useState("Click Detect");
+  const [modelLoaded, setModelLoaded] = useState(false);
 
+  // start camera only
   useEffect(() => {
-    const start = async () => {
-      await init({ landmarkerRef, videoRef, streamRef });
+    const startCamera = async () => {
+      streamRef.current = await navigator.mediaDevices.getUserMedia({
+        video: true,
+      });
+
+      videoRef.current.srcObject = streamRef.current;
+      await videoRef.current.play();
     };
 
-    start();
+    startCamera();
 
     return () => {
       landmarkerRef.current?.close();
@@ -23,17 +30,35 @@ export default function FaceExpression({ onClick }) {
     };
   }, []);
 
-  const handleClick = useCallback(() => {
-    const result = detect({ landmarkerRef, videoRef, setExpression });
+  const handleClick = useCallback(async () => {
+    // load model only once
+    if (!modelLoaded) {
+      await init({ landmarkerRef, videoRef, streamRef });
+      setModelLoaded(true);
+    }
+
+    const result = detect({
+      landmarkerRef,
+      videoRef,
+      setExpression,
+    });
 
     if (!result) return;
 
     onClick(result);
-  }, [onClick]);
+  }, [modelLoaded, onClick]);
 
   return (
     <div className="face-exp">
-      <video ref={videoRef} playsInline autoPlay muted />
+      <video
+        ref={videoRef}
+        playsInline
+        autoPlay
+        muted
+        width="480"
+        height="320"
+      />
+
       <h2 className="detect">{expression}</h2>
 
       <button className="detect-btn" onClick={handleClick}>

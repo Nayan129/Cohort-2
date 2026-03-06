@@ -4,9 +4,11 @@ import { FaceLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
 let lastDetectionTime = 0;
 const DETECTION_INTERVAL = 2000;
 
-export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
+export const init = async ({ landmarkerRef }) => {
+  if (landmarkerRef.current) return;
+
   const vision = await FilesetResolver.forVisionTasks(
-    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm",
+    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm",
   );
 
   landmarkerRef.current = await FaceLandmarker.createFromOptions(vision, {
@@ -18,26 +20,19 @@ export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
     runningMode: "VIDEO",
     numFaces: 1,
   });
-
-  streamRef.current = await navigator.mediaDevices.getUserMedia({
-    video: true,
-  });
-  videoRef.current.srcObject = streamRef.current;
-  await videoRef.current.play();
 };
 
 export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
-
+  if (videoRef.current.readyState !== 4) return;
   const now = Date.now();
   if (now - lastDetectionTime < DETECTION_INTERVAL) return;
   lastDetectionTime = now;
 
-  
   if (!landmarkerRef.current || !videoRef.current) return;
 
   const results = landmarkerRef.current.detectForVideo(
     videoRef.current,
-    performance.now(),
+    videoRef.current.currentTime * 1000,
   );
 
   if (results.faceBlendshapes?.length > 0) {
@@ -53,15 +48,13 @@ export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
     const frownLeft = getScore("mouthFrownLeft");
     const frownRight = getScore("mouthFrownRight");
 
-    console.log(getScore("mouthFrownLeft"));
-
     let currentExpression = "neutral";
 
     if (smileLeft > 0.5 && smileRight > 0.5) {
       currentExpression = "happy";
     } else if (jawOpen > 0.2 && browUp > 0.2) {
       currentExpression = "suprised";
-    } else if (frownLeft > 0.0001 && frownRight > 0.0001) {
+    } else if (frownLeft > 0.3 && frownRight > 0.3) {
       currentExpression = "sad";
     }
 

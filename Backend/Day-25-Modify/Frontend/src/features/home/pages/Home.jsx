@@ -1,5 +1,6 @@
+import React, { Suspense } from "react";
 import FaceExpression from "../../Expression/components/FaceExpression";
-import Player from "../components/Player";
+const Player = React.lazy(() => import("../components/Player"));
 import { useSong } from "../hooks/useSong";
 const Home = () => {
   const { handleGetSong } = useSong();
@@ -12,7 +13,9 @@ const Home = () => {
           handleGetSong({ mood: expression });
         }}
       />
-      <Player />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Player />
+      </Suspense>
     </>
   );
 };
