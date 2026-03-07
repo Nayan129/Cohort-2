@@ -1,10 +1,15 @@
+import { body } from "express-validator";
 const express = require("express");
 const identifyUser = require("../middlewares/auth.middleware");
 const authController = require("../controllers/authController");
 
 const authRouter = express.Router();
 
-authRouter.post("/register", authController.registerController);
+authRouter.post(
+  "/register",
+  [body("email").isEmail(), body("password").isLength({ min: 6 })],
+  authController.registerController,
+);
 
 authRouter.post("/login", authController.loginController);
 

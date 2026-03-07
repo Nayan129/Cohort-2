@@ -67,3 +67,4 @@ export default function FaceExpression({ onClick }) {
     </div>
   );
 }
+
