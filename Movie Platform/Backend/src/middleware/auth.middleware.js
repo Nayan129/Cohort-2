@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import redis from "ioredis";
+import redis from "../config/cache.js";
 
 /*
  * identifyUser before go to controller
@@ -14,7 +14,7 @@ async function identifyUser(req, res, next) {
   }
 
   // check token is in blacklist or not
-  const tokenBlacklisted = await redis.length(token);
+  const tokenBlacklisted = await redis.get(token);
 
   if (tokenBlacklisted) {
     return res.status(401).json({
