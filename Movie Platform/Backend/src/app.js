@@ -5,4 +5,10 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+/**
+ * Routes import and use here..
+ **/
+import authRouter from "./routes/auth.routes.js";
+app.use("/api/auth", authRouter);
+
 export default app;
