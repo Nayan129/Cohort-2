@@ -1,5 +1,9 @@
 import jwt from "jsonwebtoken";
-// import redis from "ioredis";
+import redis from "ioredis";
+
+/*
+ * identifyUser before go to controller
+ */
 async function identifyUser(req, res, next) {
   const token = req.cookies.token;
 
@@ -10,13 +14,13 @@ async function identifyUser(req, res, next) {
   }
 
   // check token is in blacklist or not
-  // const tokenBlacklisted = await redis.length(token);
+  const tokenBlacklisted = await redis.length(token);
 
-  // if (tokenBlacklisted) {
-  //   return res.status(401).json({
-  //     message: "unauthorized user",
-  //   });
-  // }
+  if (tokenBlacklisted) {
+    return res.status(401).json({
+      message: "unauthorized user",
+    });
+  }
 
   // if token not blacklisted then check token sign with jwt!
   let decoded;
