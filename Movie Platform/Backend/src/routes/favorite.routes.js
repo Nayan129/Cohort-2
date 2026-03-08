@@ -1,0 +1,20 @@
+import express from "express";
+import authMiddleware from "../middleware/auth.middleware.js";
+import favoriteController from "../controllers/favorite.controller.js";
+
+const favRouter = express.Router();
+
+/*
+add movies to favorite || remove movies from favorite
+Route : POST "/api/favorite/toogle"
+*/
+
+router.post("/toggle", authMiddleware, favoriteController.toggleFavorite);
+
+/*
+fetch all fevorite movies
+Route : GET "/api/favorite/"
+*/
+favRouter.get("/", authMiddleware, favoriteController.getFavorites);
+
+export default favRouter;

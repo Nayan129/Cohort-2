@@ -23,7 +23,7 @@ async function createMovie(req, res) {
       movie,
     });
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       message: error.message,
     });
   }
@@ -48,7 +48,7 @@ async function getAllMovies(req, res) {
       movies,
     });
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       message: error.message,
     });
   }
@@ -74,7 +74,7 @@ async function getSingleMovie(req, res) {
       singleMovie,
     });
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       message: error.message,
     });
   }
@@ -110,7 +110,7 @@ async function updateMovie(req, res) {
       updateMovie,
     });
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       message: error.message,
     });
   }
@@ -133,14 +133,14 @@ async function deleteMovie(req, res) {
         message: "not authorized to update this movie",
       });
     }
-    
+
     await movieModel.findByIdAndDelete(movieId);
 
     res.status(200).json({
       message: "movie deleted successfully...",
     });
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       message: error.message,
     });
   }
