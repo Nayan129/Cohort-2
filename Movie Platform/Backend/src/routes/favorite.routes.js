@@ -9,7 +9,7 @@ add movies to favorite || remove movies from favorite
 Route : POST "/api/favorite/toogle"
 */
 
-router.post("/toggle", authMiddleware, favoriteController.toggleFavorite);
+favRouter.post("/toggle", authMiddleware, favoriteController.toggleFavorite);
 
 /*
 fetch all fevorite movies

@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/register", authController.registerController);
 
 // Routes : POST - "/api/auth/login"
-router.post("/login", identifyUser, authController.loginController);
+router.post("/login", authController.loginController);
 
 // Routes : GET - "/api/auth/get-me"
 router.get("/get-me", identifyUser, authController.getMeController);

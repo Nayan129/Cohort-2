@@ -1,10 +1,17 @@
 import movieModel from "../models/movie.model.js";
 
 async function createMovie(req, res) {
-  // collect data from req.body that user send when creating movie
-
   try {
-    const { title, description, poster, genre, rating, releaseYear } = req.body;
+    const {
+      title,
+      description,
+      poster,
+      genre,
+      rating,
+      releaseYear,
+      trailer,
+      category,
+    } = req.body;
 
     const userId = req.user.id;
 
@@ -15,11 +22,13 @@ async function createMovie(req, res) {
       genre,
       rating,
       releaseYear,
+      trailer,
+      category,
       createdBy: userId,
     });
 
     res.status(201).json({
-      message: "movie created successfully...",
+      message: "movie created successfully",
       movie,
     });
   } catch (error) {
@@ -29,21 +38,16 @@ async function createMovie(req, res) {
   }
 }
 
+// fetch all movies by find method
 async function getAllMovies(req, res) {
   try {
     const movies = await movieModel
       .find()
-      .populate("createdBy", "username email")
+      .populate("createdBy", "username email role")
       .lean();
 
-    if (!movies.length) {
-      return res.status(404).json({
-        message: "no movies found",
-      });
-    }
-
     res.status(200).json({
-      message: "movies fetched successfully...",
+      message: "movies fetched successfully",
       total: movies.length,
       movies,
     });
@@ -54,24 +58,25 @@ async function getAllMovies(req, res) {
   }
 }
 
+// get single movie by movieId 
 async function getSingleMovie(req, res) {
   try {
     const movieId = req.params.id;
 
-    const singleMovie = await movieModel
+    const movie = await movieModel
       .findById(movieId)
-      .populate("createdBy", "username email")
+      .populate("createdBy", "username email role")
       .lean();
 
-    if (!singleMovie) {
+    if (!movie) {
       return res.status(404).json({
         message: "movie not found",
       });
     }
 
-    return res.status(200).json({
-      message: "movie fetched successfully...",
-      singleMovie,
+    res.status(200).json({
+      message: "movie fetched successfully",
+      movie,
     });
   } catch (error) {
     res.status(500).json({
@@ -80,34 +85,37 @@ async function getSingleMovie(req, res) {
   }
 }
 
+// update movie
 async function updateMovie(req, res) {
   try {
     const movieId = req.params.id;
-    const movieCreator = req.user.id;
+    const userId = req.user.id;
+    const userRole = req.user.role;
 
-    const movieExist = await movieModel.findById(movieId);
-    if (!movieExist) {
+    const movie = await movieModel.findById(movieId);
+
+    if (!movie) {
       return res.status(404).json({
         message: "movie not found",
       });
     }
 
-    if (movieExist.createdBy.toString() !== movieCreator) {
+    if (movie.createdBy.toString() !== userId && userRole !== "admin") {
       return res.status(403).json({
         message: "not authorized to update this movie",
       });
     }
 
-    const updateMovie = await movieModel
+    const updatedMovie = await movieModel
       .findByIdAndUpdate(movieId, req.body, {
         new: true,
       })
-      .populate("createdBy", "username email")
+      .populate("createdBy", "username email role")
       .lean();
 
-    return res.status(200).json({
-      message: "movie updated successfully...",
-      updateMovie,
+    res.status(200).json({
+      message: "movie updated successfully",
+      movie: updatedMovie,
     });
   } catch (error) {
     res.status(500).json({
@@ -116,28 +124,31 @@ async function updateMovie(req, res) {
   }
 }
 
+// delete movie created by user/admin
 async function deleteMovie(req, res) {
   try {
     const movieId = req.params.id;
-    const movieCreator = req.user.id;
+    const userId = req.user.id;
+    const userRole = req.user.role;
 
-    const movieExist = await movieModel.findById(movieId);
-    if (!movieExist) {
+    const movie = await movieModel.findById(movieId);
+
+    if (!movie) {
       return res.status(404).json({
         message: "movie not found",
       });
     }
 
-    if (movieExist.createdBy.toString() !== movieCreator) {
+    if (movie.createdBy.toString() !== userId && userRole !== "admin") {
       return res.status(403).json({
-        message: "not authorized to update this movie",
+        message: "not authorized to delete this movie",
       });
     }
 
     await movieModel.findByIdAndDelete(movieId);
 
     res.status(200).json({
-      message: "movie deleted successfully...",
+      message: "movie deleted successfully",
     });
   } catch (error) {
     res.status(500).json({

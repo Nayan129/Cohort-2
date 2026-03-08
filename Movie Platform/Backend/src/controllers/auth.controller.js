@@ -33,6 +33,7 @@ async function registerController(req, res) {
     {
       id: user._id,
       username: user.username,
+      role: user.role,
     },
     process.env.JWT_SECRET,
     { expiresIn: "1d" },
@@ -80,6 +81,7 @@ async function loginController(req, res) {
     {
       id: user._id,
       username: user.username,
+      role: user.role,
     },
     process.env.JWT_SECRET,
     { expiresIn: "1d" },
@@ -111,7 +113,7 @@ async function getMeController(req, res) {
 async function logoutController(req, res) {
   const token = req.cookies.token;
 
-  res.clearCookie(token);
+  res.clearCookie("token");
 
   await redis.set(token, Date.now().toString(), "EX", 60 * 60);
 

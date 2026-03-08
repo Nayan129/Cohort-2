@@ -10,18 +10,20 @@ const movieSchema = new mongoose.Schema(
 
     description: {
       type: String,
-      required: [
-        true,
-        "give some description so viewers should know about movie",
-      ],
+      default: "Description not available",
     },
 
     poster: {
       type: String,
-      required: true,
+      default: "https://via.placeholder.com/300x450?text=No+Poster",
     },
 
     genre: {
+      type: String,
+      required: true,
+    },
+
+    category: {
       type: String,
       required: true,
     },
@@ -36,6 +38,11 @@ const movieSchema = new mongoose.Schema(
     releaseYear: {
       type: Number,
       required: true,
+    },
+
+    trailer: {
+      type: String,
+      default: "Trailer not available",
     },
 
     createdBy: {
