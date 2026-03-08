@@ -1,15 +1,16 @@
 import axios from "axios";
 
-const BASE_URL = process.env.TMDB_BASE_URL;
-const API_KEY = process.env.TMDB_API_KEY;
+const tmdb = axios.create({
+  baseURL: process.env.TMDB_BASE_URL,
+  params: {
+    api_key: process.env.TMDB_API_KEY,
+  },
+});
 
 // Trending Movies
 async function fetchTrendingMovies(page = 1) {
-  const response = await axios.get(`${BASE_URL}/trending/movie/week`, {
-    params: {
-      api_key: API_KEY,
-      page,
-    },
+  const response = await tmdb.get("/trending/movie/week", {
+    params: { page },
   });
 
   return response.data;
@@ -17,12 +18,8 @@ async function fetchTrendingMovies(page = 1) {
 
 // Search Movies
 async function searchMovies(query, page = 1) {
-  const response = await axios.get(`${BASE_URL}/search/movie`, {
-    params: {
-      api_key: API_KEY,
-      query,
-      page,
-    },
+  const response = await tmdb.get("/search/movie", {
+    params: { query, page },
   });
 
   return response.data;
@@ -30,11 +27,8 @@ async function searchMovies(query, page = 1) {
 
 // Popular Movies
 async function fetchPopularMovies(page = 1) {
-  const response = await axios.get(`${BASE_URL}/movie/popular`, {
-    params: {
-      api_key: API_KEY,
-      page,
-    },
+  const response = await tmdb.get("/movie/popular", {
+    params: { page },
   });
 
   return response.data;
@@ -42,33 +36,22 @@ async function fetchPopularMovies(page = 1) {
 
 // Movie Details
 async function fetchMovieDetails(movieId) {
-  const response = await axios.get(`${BASE_URL}/movie/${movieId}`, {
-    params: {
-      api_key: API_KEY,
-    },
-  });
+  const response = await tmdb.get(`/movie/${movieId}`);
 
   return response.data;
 }
 
 // Movie Trailer
 async function fetchMovieTrailer(movieId) {
-  const response = await axios.get(`${BASE_URL}/movie/${movieId}/videos`, {
-    params: {
-      api_key: API_KEY,
-    },
-  });
+  const response = await tmdb.get(`/movie/${movieId}/videos`);
 
   return response.data;
 }
 
 // TV Shows
 async function fetchPopularTV(page = 1) {
-  const response = await axios.get(`${BASE_URL}/tv/popular`, {
-    params: {
-      api_key: API_KEY,
-      page,
-    },
+  const response = await tmdb.get("/tv/popular", {
+    params: { page },
   });
 
   return response.data;
@@ -76,12 +59,8 @@ async function fetchPopularTV(page = 1) {
 
 // Search Actors
 async function searchPeople(query, page = 1) {
-  const response = await axios.get(`${BASE_URL}/search/person`, {
-    params: {
-      api_key: API_KEY,
-      query,
-      page,
-    },
+  const response = await tmdb.get("/search/person", {
+    params: { query, page },
   });
 
   return response.data;
