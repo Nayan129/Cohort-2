@@ -12,9 +12,11 @@ import authRouter from "./routes/auth.routes.js";
 import movieRouter from "./routes/movie.routes.js";
 import tmdbRouter from "./routes/TMBD.routes.js";
 import favRouter from "./routes/favorite.routes.js";
+import historyRouter from "./routes/history.routes.js";
 app.use("/api/auth", authRouter);
 app.use("/movies", movieRouter);
 app.use("/api/tmdb", tmdbRouter);
 app.use("/api/favorites", favRouter);
+app.use("/api/history", historyRouter);
 
 export default app;
