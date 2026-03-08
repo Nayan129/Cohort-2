@@ -1,11 +1,16 @@
 import userModel from "../models/auth.model.js";
 
-/*
-  Get all users
-*/
+// Get all users
+
 async function getAllUsers(req, res) {
   try {
-    const users = await userModel.find().select("-password").lean();
+    const adminId = req.user.id;
+
+    const users = await userModel
+      // those who not equal to admin only fetch in users
+      .find({ _id: { $ne: adminId } })
+      .select("-password")
+      .lean();
 
     res.status(200).json({
       message: "Users fetched successfully",
@@ -19,9 +24,8 @@ async function getAllUsers(req, res) {
   }
 }
 
-/*
-  Ban user
-*/
+// Ban user
+
 async function banUser(req, res) {
   try {
     const userId = req.params.id;
@@ -31,6 +35,12 @@ async function banUser(req, res) {
     if (!user) {
       return res.status(404).json({
         message: "User not found",
+      });
+    }
+
+    if (user.role === "admin") {
+      return res.status(403).json({
+        message: "Admins cannot ban other admins",
       });
     }
 
@@ -47,18 +57,31 @@ async function banUser(req, res) {
   }
 }
 
-/*
-  Delete user
-*/
+// Delete user
+
 async function deleteUser(req, res) {
   try {
+    const adminId = req.user.id;
     const userId = req.params.id;
+
+    // prevent admin from deleting themselves
+    if (adminId === userId) {
+      return res.status(400).json({
+        message: "Admin cannot delete their own account",
+      });
+    }
 
     const user = await userModel.findById(userId);
 
     if (!user) {
       return res.status(404).json({
         message: "User not found",
+      });
+    }
+    // also not able to delete other admins
+    if (user.role === "admin") {
+      return res.status(403).json({
+        message: "Admins cannot delete other admins",
       });
     }
 
