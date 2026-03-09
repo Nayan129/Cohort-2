@@ -12,8 +12,8 @@ const MovieCard = ({ movie }) => {
           className="w-full h-75 object-cover"
         />
 
-        <div className="p-3">
-          <h3 className="text-sm font-semibold">{movie.title}</h3>
+        <div className="p-2">
+          <h3 className="text-sm">{movie.title}</h3>
         </div>
       </div>
     </Link>

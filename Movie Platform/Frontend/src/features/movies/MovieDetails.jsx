@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { getMovieDetails, getMovieTrailer } from "./moviesApi";
 import api from "../../api/axios";
 
 const MovieDetails = () => {
@@ -10,43 +11,59 @@ const MovieDetails = () => {
 
   useEffect(() => {
     const fetchMovie = async () => {
-      try {
-        const details = await api.get(`/api/tmdb/movie/${id}`);
-        const videos = await api.get(`/api/tmdb/movie/${id}/trailer`);
+      const details = await getMovieDetails(id);
+      const video = await getMovieTrailer(id);
 
-        setMovie(details.data.movie);
-        setTrailer(videos.data.trailer);
-      } catch (error) {
-        console.log(error);
-      }
+      setMovie(details.data.movie);
+      setTrailer(video.data.trailer);
+
+      await api.post("/api/history", {
+        tmdbId: details.data.movie.id,
+        title: details.data.movie.title,
+        poster: details.data.movie.poster_path,
+      });
     };
 
     fetchMovie();
   }, [id]);
+
+  const toggleFavorite = async () => {
+    await api.post("/api/favorites/toggle", {
+      tmdbId: movie.id,
+      title: movie.title,
+      poster: movie.poster_path,
+    });
+
+    alert("Favorite updated");
+  };
 
   if (!movie) return <div className="p-6">Loading...</div>;
 
   const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
   return (
-    <div className="p-6 flex gap-10">
-      <img src={poster} alt={movie.title} className="w-75 rounded-lg" />
+    <div className="p-8 flex gap-10">
+      <img src={poster} className="w-[300px] rounded" />
 
       <div>
         <h1 className="text-3xl font-bold mb-4">{movie.title}</h1>
 
         <p className="mb-4">{movie.overview}</p>
 
-        {trailer ? (
+        <button
+          onClick={toggleFavorite}
+          className="bg-red-500 px-4 py-2 rounded mb-4"
+        >
+          Add To Favorites
+        </button>
+
+        {trailer && (
           <iframe
             width="560"
             height="315"
             src={`https://www.youtube.com/embed/${trailer}`}
-            title="Trailer"
             allowFullScreen
           />
-        ) : (
-          <p>Trailer not available</p>
         )}
       </div>
     </div>

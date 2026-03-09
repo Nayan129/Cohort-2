@@ -1,30 +1,37 @@
 import { useEffect, useState } from "react";
-import api from "../../api/axios";
+import { getTrendingMovies, getPopularMovies } from "./moviesApi";
 import MovieCard from "../../components/MovieCard";
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
+  const [trending, setTrending] = useState([]);
+  const [popular, setPopular] = useState([]);
 
   useEffect(() => {
     const fetchMovies = async () => {
-      try {
-        const res = await api.get("/api/tmdb/trending?page=1");
-        console.log(res.data);
-        setMovies(res.data.movies || res.data.results);
-      } catch (error) {
-        console.log(error);
-      }
+      const trendingRes = await getTrendingMovies();
+      const popularRes = await getPopularMovies();
+
+      setTrending(trendingRes.data.movies);
+      setPopular(popularRes.data.movies);
     };
 
     fetchMovies();
   }, []);
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6">Trending Movies</h2>
+    <div className="p-8">
+      <h2 className="text-xl font-bold mb-4">Trending Now</h2>
+
+      <div className="grid grid-cols-5 gap-6 mb-10">
+        {trending.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
+
+      <h2 className="text-xl font-bold mb-4">Popular Movies</h2>
 
       <div className="grid grid-cols-5 gap-6">
-        {movies.map((movie) => (
+        {popular.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>
