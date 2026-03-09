@@ -84,12 +84,11 @@ async function getMovieTrailer(req, res) {
     const data = await tmdbService.fetchMovieTrailer(movieId);
 
     const trailer = data.results.find(
-      (video) => video.site === "YouTube" && video.type === "Trailer",
+      (video) => video.type === "Trailer" && video.site === "YouTube",
     );
 
     res.status(200).json({
-      message: "Trailer fetched successfully",
-      trailer: trailer || "Trailer not available",
+      trailer: trailer ? trailer.key : null,
     });
   } catch (error) {
     res.status(500).json({
