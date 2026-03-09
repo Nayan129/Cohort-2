@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getTrendingMovies, getPopularMovies } from "./moviesApi";
 import MovieCard from "../../components/MovieCard";
+import HeroBanner from "../../components/HeroBanner";
 
 const Home = () => {
   const [trending, setTrending] = useState([]);
@@ -19,23 +20,26 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="p-8">
-      <h2 className="text-xl font-bold mb-4">Trending Now</h2>
+    <>
+      <HeroBanner />
+      <div className="p-8">
+        <h2 className="text-xl font-bold mb-4">Trending Now</h2>
 
-      <div className="grid grid-cols-5 gap-6 mb-10">
-        {trending.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
+        <div className="grid grid-cols-5 gap-6 mb-10">
+          {trending.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
+
+        <h2 className="text-xl font-bold mb-4">Popular Movies</h2>
+
+        <div className="grid grid-cols-5 gap-6">
+          {popular.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
       </div>
-
-      <h2 className="text-xl font-bold mb-4">Popular Movies</h2>
-
-      <div className="grid grid-cols-5 gap-6">
-        {popular.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 
