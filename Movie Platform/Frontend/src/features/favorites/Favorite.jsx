@@ -6,9 +6,13 @@ const Favorite = () => {
 
   useEffect(() => {
     const fetchFavorites = async () => {
-      const res = await api.get("/api/favorites");
+      try {
+        const res = await api.get("/api/favorites");
 
-      setFavorites(res.data.allFavorites);
+        setFavorites(res.data.allFavorites);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     fetchFavorites();

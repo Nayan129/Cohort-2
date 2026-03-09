@@ -28,13 +28,17 @@ const MovieDetails = () => {
   }, [id]);
 
   const toggleFavorite = async () => {
-    await api.post("/api/favorites/toggle", {
-      tmdbId: movie.id,
-      title: movie.title,
-      poster: movie.poster_path,
-    });
+    try {
+      const res = await api.post("/api/favorites/toggle", {
+        tmdbId: movie.id,
+        title: movie.title,
+        poster: movie.poster_path,
+      });
 
-    alert("Favorite updated");
+      alert(res.data.message);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (!movie) return <div className="p-6">Loading...</div>;
@@ -43,7 +47,7 @@ const MovieDetails = () => {
 
   return (
     <div className="p-8 flex gap-10">
-      <img src={poster} className="w-[300px] rounded" />
+      <img src={poster} className="w-75 rounded" />
 
       <div>
         <h1 className="text-3xl font-bold mb-4">{movie.title}</h1>

@@ -6,9 +6,13 @@ const History = () => {
 
   useEffect(() => {
     const fetchHistory = async () => {
-      const res = await api.get("/api/history");
+      try {
+        const res = await api.get("/api/history");
 
-      setHistory(res.data.history);
+        setHistory(res.data.history);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     fetchHistory();

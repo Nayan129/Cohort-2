@@ -6,14 +6,14 @@ const favRouter = express.Router();
 
 /*
 add movies to favorite || remove movies from favorite
-Route : POST "/api/favorite/toogle"
+Route : POST "/api/favorites/toogle"
 */
 
 favRouter.post("/toggle", authMiddleware, favoriteController.toggleFavorite);
 
 /*
 fetch all fevorite movies
-Route : GET "/api/favorite/"
+Route : GET "/api/favorites/"
 */
 favRouter.get("/", authMiddleware, favoriteController.getFavorites);
 
