@@ -6,6 +6,8 @@ import MovieDetails from "../features/movies/MovieDetails";
 import Favorite from "../features/favorites/Favorite";
 import History from "../features/history/History";
 import SearchPage from "../features/Search/SearchPage";
+import Login from "../features/auth/Login";
+import Register from "../features/auth/Register";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ export const router = createBrowserRouter([
       {
         path: "/search",
         element: <SearchPage />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },
