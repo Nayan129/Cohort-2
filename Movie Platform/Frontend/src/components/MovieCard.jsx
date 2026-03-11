@@ -7,7 +7,7 @@ const MovieCard = ({ movie }) => {
 
   return (
     <Link to={`/movie/${movie.id}`}>
-      <div className="bg-slate-800 rounded-lg overflow-hidden hover:scale-105 transition cursor-pointer">
+      <div className="min-w-65 max-h-100 bg-slate-800 rounded-lg overflow-hidden hover:scale-105 transition">
         <img
           src={poster}
           alt={movie.title}
