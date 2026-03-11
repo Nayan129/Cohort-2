@@ -1,38 +1,40 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import useDebounce from "../hooks/useDebounce";
 
 const Navbar = () => {
   const [query, setQuery] = useState("");
 
+  const navigate = useNavigate();
+
+  const debouncedQuery = useDebounce(query, 500);
+
+  useEffect(() => {
+    if (debouncedQuery.trim() !== "") {
+      navigate(`/search?q=${debouncedQuery}`);
+    }
+  }, [debouncedQuery, navigate]);
+
   return (
-    <nav className="flex justify-between items-center px-8 py-3 bg-black">
-      {/* Logo */}
+    <nav className="flex flex-col md:flex-row md:items-center md:justify-between px-6 py-4 bg-black gap-4">
       <Link to="/" className="text-2xl font-bold text-red-500">
         CineVerse
       </Link>
 
-      {/* Search */}
       <input
         type="text"
         placeholder="Search movies, actors..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            window.location.href = `/search?q=${query}`;
-          }
-        }}
-        className="bg-slate-800 px-4 py-2 rounded text-white w-100"
+        className="bg-slate-800 px-4 py-2 rounded text-white w-full md:w-100"
       />
 
-      {/* Links */}
-      <div className="flex gap-6">
+      <div className="flex gap-6 text-white">
         <Link to="/favorites">Favorites</Link>
-
         <Link to="/history">History</Link>
+        <Link to="/login" className="bg-red-600">Login</Link>
+        <Link to="/register" className="bg-red-600">Register</Link>
       </div>
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
     </nav>
   );
 };

@@ -22,7 +22,7 @@ const History = () => {
     <div className="p-8">
       <h1 className="text-xl font-bold mb-6">Watch History</h1>
 
-      <div className="grid grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {history.map((movie) => {
           const poster = `https://image.tmdb.org/t/p/w500${movie.poster}`;
 

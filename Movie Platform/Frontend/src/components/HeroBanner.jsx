@@ -9,7 +9,7 @@ const HeroBanner = () => {
     const fetchHero = async () => {
       try {
         const res = await api.get("/api/tmdb/trending?page=1");
-        console.log(res.data.movies)
+        console.log(res.data.movies);
 
         //random movie display hogi
         const randomMovie =
@@ -34,7 +34,7 @@ const HeroBanner = () => {
       style={{ backgroundImage: `url(${backdrop})` }}
     >
       <div className="max-w-xl">
-        <h1 className="text-5xl font-bold mb-4">{movie.title}</h1>
+        <h1 className="text-3xl md:text-5xl font-bold mb-4">{movie.title}</h1>
 
         <p className="mb-6 line-clamp-3">{movie.overview}</p>
 

@@ -3,8 +3,9 @@ import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div className="bg-slate-900 min-h-screen text-white">
+    <div>
       <Navbar />
+
       <Outlet />
     </div>
   );
