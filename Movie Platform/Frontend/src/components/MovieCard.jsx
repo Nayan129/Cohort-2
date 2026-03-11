@@ -11,7 +11,7 @@ const MovieCard = ({ movie }) => {
         <img
           src={poster}
           alt={movie.title}
-          className="w-full h-[300px] object-cover"
+          className="w-full h-75 object-cover"
         />
 
         <div className="p-3">
