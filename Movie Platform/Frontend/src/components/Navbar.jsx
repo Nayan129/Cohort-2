@@ -17,6 +17,11 @@ const Navbar = () => {
         placeholder="Search movies, actors..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            window.location.href = `/search?q=${query}`;
+          }
+        }}
         className="bg-slate-800 px-4 py-2 rounded text-white w-100"
       />
 

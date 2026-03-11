@@ -5,6 +5,7 @@ import Home from "../features/movies/Home";
 import MovieDetails from "../features/movies/MovieDetails";
 import Favorite from "../features/favorites/Favorite";
 import History from "../features/history/History";
+import SearchPage from "../features/Search/SearchPage";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
       { path: "movie/:id", element: <MovieDetails /> },
       { path: "favorites", element: <Favorite /> },
       { path: "history", element: <History /> },
+      {
+        path: "/search",
+        element: <SearchPage />,
+      },
     ],
   },
 ]);
