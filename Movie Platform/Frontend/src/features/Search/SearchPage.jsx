@@ -13,7 +13,7 @@ const SearchPage = () => {
     const fetchSearch = async () => {
       const res = await searchMovie(query);
 
-      setResults(res.data.movies || res.data.results);
+      setResults(res.data.movies || res.data.results || []);
     };
 
     if (query) fetchSearch();
@@ -24,7 +24,7 @@ const SearchPage = () => {
       <h2 className="text-xl font-bold mb-6">Search Results for "{query}"</h2>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {results.map((movie) => (
+        {results?.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>

@@ -9,7 +9,7 @@ const History = () => {
       try {
         const res = await api.get("/api/history");
 
-        setHistory(res.data.history);
+        setHistory(res.data.history || []);
       } catch (err) {
         console.log(err);
       }

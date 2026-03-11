@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
-  const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  const poster = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    : "/no-poster.png";
 
   const rating = movie.vote_average?.toFixed(1);
 

@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-body {
-  background: #020617;
-}
-
 ::-webkit-scrollbar {
   height: 6px;
 }
@@ -11,4 +7,9 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #444;
   border-radius: 10px;
+}
+
+body {
+  background: #020617;
+  color: white;
 }

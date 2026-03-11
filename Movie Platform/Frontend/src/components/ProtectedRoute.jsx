@@ -1,9 +1,11 @@
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const isLoggedIn = document.cookie.includes("token");
+  const token = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("token="));
 
-  if (!isLoggedIn) {
+  if (!token) {
     return <Navigate to="/login" />;
   }
 
