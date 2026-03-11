@@ -61,7 +61,23 @@ async function getFavorites(req, res) {
   }
 }
 
+async function deleteFavorite(req, res) {
+  try {
+    const { id } = req.params;
+
+    await favoriteModel.findByIdAndDelete(id);
+
+    res.status(200).json({
+      message: "favorite removed",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+}
 export default {
   toggleFavorite,
   getFavorites,
+  deleteFavorite,
 };

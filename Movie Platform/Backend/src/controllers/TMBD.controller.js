@@ -3,15 +3,19 @@ import tmdbService from "../services/TMBD.services.js";
 // get this weeks trending Movies from TMDB Api
 async function getTrendingMovies(req, res) {
   try {
-    const response = await axios.get(TMDB_URL);
+    const page = req.query.page || 1;
 
-    res.json({
-      movies: response.data.results,
+    const data = await tmdbService.fetchTrendingMovies(page);
+
+    res.status(200).json({
+      message: "Trending movies fetched successfully",
+      page: data.page,
+      totalPages: data.total_pages,
+      movies: data.results,
     });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      message: "tmdb error",
-      movies: [],
+      message: error.message,
     });
   }
 }

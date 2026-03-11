@@ -10,4 +10,6 @@ historyRouter.get("/", authMiddleware, historyController.getHistory);
 
 historyRouter.delete("/clear", authMiddleware, historyController.clearHistory);
 
+historyRouter.delete("/:id", authMiddleware, historyController.deleteHistory);
+
 export default historyRouter;

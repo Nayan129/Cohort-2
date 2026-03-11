@@ -8,6 +8,7 @@ const MovieDetails = () => {
 
   const [movie, setMovie] = useState(null);
   const [trailer, setTrailer] = useState(null);
+  const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -35,19 +36,25 @@ const MovieDetails = () => {
         poster: movie.poster_path,
       });
 
-      alert(res.data.message);
-    } catch (error) {
-      console.log(error);
+      if (res.data.action === "added") {
+        setFavorite(true);
+      }
+
+      if (res.data.action === "removed") {
+        setFavorite(false);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  if (!movie) return <div className="p-6">Loading...</div>;
+  if (!movie) return <div className="p-6 text-white">Loading...</div>;
 
   const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
   return (
-    <div className="p-8 flex flex-col md:flex-row gap-10">
-      <img src={poster} className="w-62.5 rounded" />
+    <div className="p-8 flex flex-col md:flex-row gap-10 text-white">
+      <img src={poster} className="w-[250px] rounded" />
 
       <div>
         <h1 className="text-3xl font-bold mb-4">{movie.title}</h1>
@@ -58,7 +65,7 @@ const MovieDetails = () => {
           onClick={toggleFavorite}
           className="bg-red-500 px-4 py-2 rounded mb-4"
         >
-          Add To Favorites
+          {favorite ? "Remove From Favorites" : "Add To Favorites"}
         </button>
 
         {trailer && (

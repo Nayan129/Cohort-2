@@ -17,4 +17,11 @@ Route : GET "/api/favorites/"
 */
 favRouter.get("/", authMiddleware, favoriteController.getFavorites);
 
+/*
+delete fevorite movies
+Route : GET "/api/favorites/:id"
+*/
+
+favRouter.delete("/:id", authMiddleware, favoriteController.deleteFavorite);
+
 export default favRouter;

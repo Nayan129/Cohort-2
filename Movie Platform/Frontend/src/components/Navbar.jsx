@@ -30,7 +30,7 @@ const Navbar = () => {
   return (
     <nav className="flex flex-col md:flex-row md:items-center md:justify-between px-8 py-4 bg-black text-white gap-4">
       <Link to="/" className="text-2xl font-bold text-red-500">
-        CineVerse
+        ReelNova
       </Link>
 
       <input
