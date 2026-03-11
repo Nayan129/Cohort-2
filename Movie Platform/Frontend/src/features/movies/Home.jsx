@@ -18,9 +18,9 @@ const Home = () => {
         const popularRes = await getPopularMovies().catch(() => null);
         const tvRes = await getTVShows().catch(() => null);
 
-        const trendingMovies = trendingRes?.data?.movies || [];
-        const popularMovies = popularRes?.data?.movies || [];
-        const tvShowsData = tvRes?.data?.tvShows || [];
+        const trendingMovies = trendingRes?.data?.movies ?? [];
+        const popularMovies = popularRes?.data?.movies ?? [];
+        const tvShowsData = tvRes?.data?.tvShows ?? [];
 
         setTrending(trendingMovies);
         setPopular(popularMovies);
