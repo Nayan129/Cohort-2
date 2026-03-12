@@ -41,7 +41,13 @@ const Home = () => {
     fetchMovies();
   }, []);
 
-  if (loading) return <Loader />;
+  {
+    loading ? (
+      <Loader />
+    ) : (
+      movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
+    );
+  }
 
   return (
     <div className="text-white">
