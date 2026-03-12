@@ -41,47 +41,48 @@ const Home = () => {
     fetchMovies();
   }, []);
 
-  {
-    loading ? (
-      <Loader />
-    ) : (
-      movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
-    );
-  }
-
   return (
     <div className="text-white">
       <HeroBanner movie={hero} />
 
       <div className="p-8">
+        {/* Trending */}
         <h2 className="text-xl font-bold mb-4">Trending Now</h2>
 
         <div className="flex gap-6 overflow-x-auto pb-4 mb-10">
-          {trending.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => <Loader key={i} />)
+            : trending.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))}
         </div>
 
+        {/* Popular Movies */}
         <h2 className="text-xl font-bold mb-4">Popular Movies</h2>
 
         <div className="flex gap-6 overflow-x-auto pb-4 mb-10">
-          {popular.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => <Loader key={i} />)
+            : popular.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))}
         </div>
 
+        {/* TV Shows */}
         <h2 className="text-xl font-bold mb-4">TV Shows</h2>
 
         <div className="flex gap-6 overflow-x-auto pb-4 mb-10">
-          {tvShows.map((show) => (
-            <MovieCard
-              key={show.id}
-              movie={{
-                ...show,
-                title: show.name,
-              }}
-            />
-          ))}
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => <Loader key={i} />)
+            : tvShows.map((show) => (
+                <MovieCard
+                  key={show.id}
+                  movie={{
+                    ...show,
+                    title: show.name,
+                  }}
+                />
+              ))}
         </div>
       </div>
     </div>
