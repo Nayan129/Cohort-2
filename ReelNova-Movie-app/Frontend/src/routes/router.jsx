@@ -7,7 +7,7 @@ import History from "../features/history/History";
 import Login from "../features/auth/Login";
 import Register from "../features/auth/Register";
 import MovieDetails from "../features/movies/MovieDetails";
-import SearchPage from "../features/search/SearchPage";
+import SearchPage from "../features/Search/SearchPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 export const router = createBrowserRouter([
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
         path: "movie/:id",
         element: <MovieDetails />,
       },
-      
+
       {
         path: "tv/:id",
         element: <MovieDetails />,
