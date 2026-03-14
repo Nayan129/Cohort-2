@@ -14,9 +14,11 @@ const Home = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const trendingRes = await getTrendingMovies().catch(() => null);
-        const popularRes = await getPopularMovies().catch(() => null);
-        const tvRes = await getTVShows().catch(() => null);
+        const [trendingRes, popularRes, tvRes] = await Promise.all([
+          getTrendingMovies().catch(() => null),
+          getPopularMovies().catch(() => null),
+          getTVShows().catch(() => null),
+        ]);
 
         const trendingMovies = trendingRes?.data?.movies ?? [];
         const popularMovies = popularRes?.data?.movies ?? [];
@@ -43,7 +45,7 @@ const Home = () => {
 
   return (
     <div className="text-white">
-      <HeroBanner movie={hero} />
+      {hero && <HeroBanner movie={hero} />}
 
       <div className="p-8">
         {/* Trending */}
@@ -52,9 +54,9 @@ const Home = () => {
         <div className="flex gap-6 overflow-x-auto pb-4 mb-10">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => <Loader key={i} />)
-            : trending.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
+            : trending
+                .slice(0, 10)
+                .map((movie) => <MovieCard key={movie.id} movie={movie} />)}
         </div>
 
         {/* Popular Movies */}
@@ -63,9 +65,9 @@ const Home = () => {
         <div className="flex gap-6 overflow-x-auto pb-4 mb-10">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => <Loader key={i} />)
-            : popular.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
+            : popular
+                .slice(0, 10)
+                .map((movie) => <MovieCard key={movie.id} movie={movie} />)}
         </div>
 
         {/* TV Shows */}
@@ -74,7 +76,7 @@ const Home = () => {
         <div className="flex gap-6 overflow-x-auto pb-4 mb-10">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => <Loader key={i} />)
-            : tvShows.map((show) => (
+            : tvShows.slice(0, 10).map((show) => (
                 <MovieCard
                   key={show.id}
                   movie={{

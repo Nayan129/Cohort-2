@@ -40,7 +40,13 @@ async function registerController(req, res) {
   );
 
   //now token send to cookies
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+    maxAge: 24 * 60 * 60 * 1000,
+  });
 
   // now send res as user registered
   res.status(201).json({
@@ -87,7 +93,15 @@ async function loginController(req, res) {
     { expiresIn: "1d" },
   );
 
-  res.cookie("token", token);
+  // setting cookies for production lavel
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+    maxAge: 24 * 60 * 60 * 1000,
+  });
 
   res.status(200).json({
     message: "user LoggedIn successfully...",
@@ -113,7 +127,12 @@ async function getMeController(req, res) {
 async function logoutController(req, res) {
   const token = req.cookies.token;
 
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    domain: ".onrender.com",
+  });
 
   await redis.set(token, Date.now().toString(), "EX", 60 * 60);
 

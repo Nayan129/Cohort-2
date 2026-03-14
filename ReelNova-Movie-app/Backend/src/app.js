@@ -7,22 +7,25 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://reelnova-movie-app.netlify.app",
+    origin: "https://reelnova-movies.vercel.app",
     credentials: true,
   }),
 );
+app.get("/", (req, res) => {
+  res.send("API working 🚀");
+});
 
 /**
  * Routes import and use here..
  **/
 import authRouter from "./routes/auth.routes.js";
-import movieRouter from "./routes/movie.routes.js";
+// import movieRouter from "./routes/movie.routes.js";
 import tmdbRouter from "./routes/TMBD.routes.js";
 import favRouter from "./routes/favorite.routes.js";
 import historyRouter from "./routes/history.routes.js";
 import adminRouter from "./routes/admin.routes.js";
 app.use("/api/auth", authRouter);
-app.use("/movies", movieRouter);
+// app.use("api/movies", movieRouter);
 app.use("/api/tmdb", tmdbRouter);
 app.use("/api/favorites", favRouter);
 app.use("/api/history", historyRouter);

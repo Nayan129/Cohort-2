@@ -1,21 +1,39 @@
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const History = () => {
   const [history, setHistory] = useState([]);
+  const navigate = useNavigate();
 
   const fetchHistory = async () => {
     try {
       const res = await api.get("/api/history");
 
-      setHistory(res.data.history || []);
+      console.log("HISTORY RESPONSE:", res.data);
+
+      setHistory(res.data.history || res.data.allHistory || []);
     } catch (err) {
-      console.log(err);
+      console.log("HISTORY ERROR:", err.response);
+
+      if (err.response?.status === 401) {
+        navigate("/login");
+        return;
+      }
     }
   };
 
   useEffect(() => {
-    fetchHistory();
+    const checkUser = async () => {
+      try {
+        await api.get("/api/auth/get-me");
+        fetchHistory();
+      } catch {
+        navigate("/login");
+      }
+    };
+
+    checkUser();
   }, []);
 
   const clearAllHistory = async () => {

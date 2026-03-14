@@ -8,7 +8,7 @@ const MovieCard = ({ movie }) => {
   const title = movie.title || movie.name;
 
   const poster = movie.poster_path
-    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
     : "";
 
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
@@ -34,7 +34,14 @@ const MovieCard = ({ movie }) => {
   return (
     <Link to={`/${mediaType}/${movie.id}`}>
       <div className="relative min-w-55 bg-slate-800 rounded-lg overflow-hidden hover:scale-105 transition">
-        <img src={poster} alt={title} className="w-full h-75 object-cover" />
+        <img
+          src={poster}
+          alt={title}
+          loading="lazy"
+          width="342"
+          height="513"
+          className="w-full h-75 object-cover"
+        />
 
         <button
           onClick={toggleFavorite}
@@ -59,4 +66,6 @@ const MovieCard = ({ movie }) => {
   );
 };
 
-export default MovieCard;
+// used react.memo so that react not render every child unnecesarily
+import React from "react";
+export default React.memo(MovieCard);
