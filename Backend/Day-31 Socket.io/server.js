@@ -7,6 +7,11 @@ const io = new Server(httpServer, {});
 
 io.on("connection", (Socket) => {
   console.log("new connection created");
+
+  Socket.on("message", (msg) => {
+    console.log("user fire message");
+    console.log(msg);
+  });
 });
 
 httpServer.listen(3000, () => {
