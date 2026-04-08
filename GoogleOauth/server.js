@@ -24,6 +24,22 @@ passport.use(
   ),
 );
 
+// authentication process
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] }),
+);
+
+// authentication success
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { session: false, failureRedirect: "/" }),
+  (req, res) => {
+    console.log(req.user);
+    res.send("Google authenticate Successful");
+  },
+);
+
 app.listen(3000, (req, res) => {
   console.log("server is running on port 3000 successfully.");
 });
