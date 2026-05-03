@@ -1,0 +1,20 @@
+# here we installing node ka 20 version and linux ka apline version (smaller size)
+FROM node:20-alpine
+
+# work directory is /App
+WORKDIR /app
+
+# package-lock.json and package.json copy in Images by using (.)
+COPY package*.json ./
+
+# now install dependencies using Run npm install
+RUN npm install
+
+# now copy all files of backend into image 
+COPY . .
+
+# image will be accepting trafic on port 3000
+EXPOSE 3000
+
+# this will run our server.js with node  
+CMD ["node","server.js"]
